@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F5FA175704BA42F290273BA5 /* BlinkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593D80789114942A023E60F /* BlinkApp.swift */; };
+		9D49959EA81443548558C3E7 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9F44B9F1C4DF9B2692AFC /* AppModel.swift */; };
+		D5394E5912B047D89F0A856E /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE8B47AA5684A39997558F8 /* CaptureSession.swift */; };
+		BAB3AB5EA1634A6098E002A8 /* BrandColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C84ACC1633C407384E2CE32 /* BrandColors.swift */; };
+		0A8C4532A1A34E32AAA119F8 /* CaptureOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D0E77E67F47AFB4DAFC0B /* CaptureOverlayController.swift */; };
+		BCFF3BD11FF34C8DBBB0660E /* ScreenCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86EC06246B744F79CA5E8DC /* ScreenCropper.swift */; };
+		5E65AF822C174A49917F7D99 /* SelectionGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08F799CE9044E0788ABD26D /* SelectionGeometry.swift */; };
+		35739E1B3F0740BB8B49AFCF /* OCRTextNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6298FB6C4EC74B9A83A664E5 /* OCRTextNormalizer.swift */; };
+		313335AF0F854C948932DC34 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD88B6A20C2A4BCC9CDF2B3C /* TextRecognizer.swift */; };
+		BF56ED2EE7774D6CADC558D2 /* GlobalHotkeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0933D43A39490289831659 /* GlobalHotkeyMonitor.swift */; };
+		C73BB127F3C341ADAB3CA17A /* HotkeyChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */; };
+		FD0BD0B2CE954CA5B647E781 /* PermissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3072ED97AB0460C938F5529 /* PermissionStatus.swift */; };
+		D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F89FA1B914B0E90BB6446 /* OnboardingView.swift */; };
+		A1E40EF752334A56BD52A332 /* CursorTipOCRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */; };
+		0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB9E26ED729402D8056F6C3 /* LoginItemController.swift */; };
+		256D0FC15E9B4FA098192069 /* ClipboardFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */; };
+		09A70005CFF74A1CBE8A2B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1E03B6E8FD4A3B83B7390B /* Assets.xcassets */; };
+		E67B777C3D7C4B35B039BB94 /* HotkeyChordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */; };
+		4F9D0843B45446418C702EFF /* OCRTextNormalizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */; };
+		A0DEA6DBA60B4B4F90360060 /* SelectionGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F705094010F44DC4B35E467D /* Blink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blink.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CC23CC216E94B4DBA629B6A /* BlinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7593D80789114942A023E60F /* BlinkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkApp.swift; sourceTree = "<group>"; };
+		E9C9F44B9F1C4DF9B2692AFC /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		ECE8B47AA5684A39997558F8 /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
+		7C84ACC1633C407384E2CE32 /* BrandColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandColors.swift; sourceTree = "<group>"; };
+		DA4D0E77E67F47AFB4DAFC0B /* CaptureOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOverlayController.swift; sourceTree = "<group>"; };
+		C86EC06246B744F79CA5E8DC /* ScreenCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCropper.swift; sourceTree = "<group>"; };
+		B08F799CE9044E0788ABD26D /* SelectionGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGeometry.swift; sourceTree = "<group>"; };
+		6298FB6C4EC74B9A83A664E5 /* OCRTextNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTextNormalizer.swift; sourceTree = "<group>"; };
+		FD88B6A20C2A4BCC9CDF2B3C /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		DB0933D43A39490289831659 /* GlobalHotkeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotkeyMonitor.swift; sourceTree = "<group>"; };
+		13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyChord.swift; sourceTree = "<group>"; };
+		B3072ED97AB0460C938F5529 /* PermissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStatus.swift; sourceTree = "<group>"; };
+		4A5F89FA1B914B0E90BB6446 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorTipOCRController.swift; sourceTree = "<group>"; };
+		5DB9E26ED729402D8056F6C3 /* LoginItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemController.swift; sourceTree = "<group>"; };
+		EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardFeedback.swift; sourceTree = "<group>"; };
+		9A1E03B6E8FD4A3B83B7390B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D673B05AE314AD6B50A920E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E815B516426842AF869872A8 /* Blink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blink.entitlements; sourceTree = "<group>"; };
+		ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyChordTests.swift; sourceTree = "<group>"; };
+		0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTextNormalizerTests.swift; sourceTree = "<group>"; };
+		194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGeometryTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		989974846C4A48E89344E570 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7593D80789114942A023E60F /* BlinkApp.swift */,
+				E9C9F44B9F1C4DF9B2692AFC /* AppModel.swift */,
+				ECE8B47AA5684A39997558F8 /* CaptureSession.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		34FF47C770864DB580374030 /* Brand */ = {
+			isa = PBXGroup;
+			children = (
+				7C84ACC1633C407384E2CE32 /* BrandColors.swift */,
+			);
+			path = Brand;
+			sourceTree = "<group>";
+		};
+		8024431992E849128825A6B6 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				DA4D0E77E67F47AFB4DAFC0B /* CaptureOverlayController.swift */,
+				C86EC06246B744F79CA5E8DC /* ScreenCropper.swift */,
+				B08F799CE9044E0788ABD26D /* SelectionGeometry.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		0D5A88C7FFB44EE6B70F5E8B /* OCR */ = {
+			isa = PBXGroup;
+			children = (
+				6298FB6C4EC74B9A83A664E5 /* OCRTextNormalizer.swift */,
+				FD88B6A20C2A4BCC9CDF2B3C /* TextRecognizer.swift */,
+			);
+			path = OCR;
+			sourceTree = "<group>";
+		};
+		E803DE198D694E8BB269A31A /* Hotkey */ = {
+			isa = PBXGroup;
+			children = (
+				DB0933D43A39490289831659 /* GlobalHotkeyMonitor.swift */,
+				13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */,
+			);
+			path = Hotkey;
+			sourceTree = "<group>";
+		};
+		DC68C889FB634CAFA303D353 /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				B3072ED97AB0460C938F5529 /* PermissionStatus.swift */,
+			);
+			path = Permissions;
+			sourceTree = "<group>";
+		};
+		C0226CFF8915407785D3CAE1 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4A5F89FA1B914B0E90BB6446 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		80DB42DF1431401CA92A6852 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */,
+			);
+			path = Experimental;
+			sourceTree = "<group>";
+		};
+		CA84E64E894243779180C1CE /* LoginItem */ = {
+			isa = PBXGroup;
+			children = (
+				5DB9E26ED729402D8056F6C3 /* LoginItemController.swift */,
+			);
+			path = LoginItem;
+			sourceTree = "<group>";
+		};
+		3ECA5C540EA4425EB6F5027C /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		64F6878622C94478B2982C8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9A1E03B6E8FD4A3B83B7390B /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5AAC127406A542CF9FA10313 /* Blink */ = {
+			isa = PBXGroup;
+			children = (
+				989974846C4A48E89344E570 /* App */,
+				34FF47C770864DB580374030 /* Brand */,
+				8024431992E849128825A6B6 /* Capture */,
+				0D5A88C7FFB44EE6B70F5E8B /* OCR */,
+				E803DE198D694E8BB269A31A /* Hotkey */,
+				DC68C889FB634CAFA303D353 /* Permissions */,
+				C0226CFF8915407785D3CAE1 /* Onboarding */,
+				80DB42DF1431401CA92A6852 /* Experimental */,
+				CA84E64E894243779180C1CE /* LoginItem */,
+				3ECA5C540EA4425EB6F5027C /* Feedback */,
+				64F6878622C94478B2982C8D /* Resources */,
+				0D673B05AE314AD6B50A920E /* Info.plist */,
+				E815B516426842AF869872A8 /* Blink.entitlements */,
+			);
+			path = Blink;
+			sourceTree = "<group>";
+		};
+		DFD75ECCDA5A4110A9592AA2 /* BlinkTests */ = {
+			isa = PBXGroup;
+			children = (
+				ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */,
+				0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */,
+				194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */,
+			);
+			path = BlinkTests;
+			sourceTree = "<group>";
+		};
+		CE215467E9814C7BB7A0BDCD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F705094010F44DC4B35E467D /* Blink.app */,
+				0CC23CC216E94B4DBA629B6A /* BlinkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C48E48FB372A400395383309 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5AAC127406A542CF9FA10313 /* Blink */,
+				DFD75ECCDA5A4110A9592AA2 /* BlinkTests */,
+				CE215467E9814C7BB7A0BDCD /* Products */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C1B265039CC44A9EB033AFDA /* Blink */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07277F1A831846ABA3F4764D /* Build configuration list for PBXNativeTarget "Blink" */;
+			buildPhases = (
+				CCC0E8FB428C4296887BCF71 /* Sources */,
+				C0BF1D4AEBD748A78B060E67 /* Resources */,
+				4878AEFB2E024E3C817CB007 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Blink;
+			productName = Blink;
+			productReference = F705094010F44DC4B35E467D /* Blink.app */;
+			productType = "com.apple.product-type.application";
+		};
+		222C3F1C8F2D4562AB8B991F /* BlinkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0E15AC8256D4E94AEB4FD8B /* Build configuration list for PBXNativeTarget "BlinkTests" */;
+			buildPhases = (
+				B471BA1C5B034BF4A1AE42AF /* Sources */,
+				0B68511065C741629A846C9A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79470B0D244343548997935A /* PBXTargetDependency */,
+			);
+			name = BlinkTests;
+			productName = BlinkTests;
+			productReference = 0CC23CC216E94B4DBA629B6A /* BlinkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		CB72652BAEAF4E9C966B5B39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E856EE5A2BEE46FDB9BBD23B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1B265039CC44A9EB033AFDA;
+			remoteInfo = Blink;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		79470B0D244343548997935A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C1B265039CC44A9EB033AFDA /* Blink */;
+			targetProxy = CB72652BAEAF4E9C966B5B39 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXProject section */
+		E856EE5A2BEE46FDB9BBD23B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					C1B265039CC44A9EB033AFDA = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					222C3F1C8F2D4562AB8B991F = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = C1B265039CC44A9EB033AFDA;
+					};
+				};
+			};
+			buildConfigurationList = D947A4132FFA476BACFDDD5A /* Build configuration list for PBXProject "Blink" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C48E48FB372A400395383309;
+			productRefGroup = CE215467E9814C7BB7A0BDCD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C1B265039CC44A9EB033AFDA /* Blink */,
+				222C3F1C8F2D4562AB8B991F /* BlinkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCC0E8FB428C4296887BCF71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5FA175704BA42F290273BA5 /* BlinkApp.swift in Sources */,
+				9D49959EA81443548558C3E7 /* AppModel.swift in Sources */,
+				D5394E5912B047D89F0A856E /* CaptureSession.swift in Sources */,
+				BAB3AB5EA1634A6098E002A8 /* BrandColors.swift in Sources */,
+				0A8C4532A1A34E32AAA119F8 /* CaptureOverlayController.swift in Sources */,
+				BCFF3BD11FF34C8DBBB0660E /* ScreenCropper.swift in Sources */,
+				5E65AF822C174A49917F7D99 /* SelectionGeometry.swift in Sources */,
+				35739E1B3F0740BB8B49AFCF /* OCRTextNormalizer.swift in Sources */,
+				313335AF0F854C948932DC34 /* TextRecognizer.swift in Sources */,
+				BF56ED2EE7774D6CADC558D2 /* GlobalHotkeyMonitor.swift in Sources */,
+				C73BB127F3C341ADAB3CA17A /* HotkeyChord.swift in Sources */,
+				FD0BD0B2CE954CA5B647E781 /* PermissionStatus.swift in Sources */,
+				D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */,
+				A1E40EF752334A56BD52A332 /* CursorTipOCRController.swift in Sources */,
+				0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */,
+				256D0FC15E9B4FA098192069 /* ClipboardFeedback.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B471BA1C5B034BF4A1AE42AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67B777C3D7C4B35B039BB94 /* HotkeyChordTests.swift in Sources */,
+				4F9D0843B45446418C702EFF /* OCRTextNormalizerTests.swift in Sources */,
+				A0DEA6DBA60B4B4F90360060 /* SelectionGeometryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0BF1D4AEBD748A78B060E67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09A70005CFF74A1CBE8A2B68 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4878AEFB2E024E3C817CB007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B68511065C741629A846C9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		13A017BF74C44736B1BB46F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)",);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5F4C1B9F293E4C3A908675F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		7321C8FD6AE64F5D87498102 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Blink/Blink.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Blink/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.blink.Blink;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Debug;
+		};
+		1F590FA3D31F48BCB7D91DC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Blink/Blink.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Blink/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.blink.Blink;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Release;
+		};
+		E99A6CEDFF984E36A41DD15B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.blink.BlinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blink.app/Contents/MacOS/Blink";
+			};
+			name = Debug;
+		};
+		A62ECB7E5C31431289FD32B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.blink.BlinkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blink.app/Contents/MacOS/Blink";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D947A4132FFA476BACFDDD5A /* Build configuration list for PBXProject "Blink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13A017BF74C44736B1BB46F0 /* Debug */,
+				5F4C1B9F293E4C3A908675F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07277F1A831846ABA3F4764D /* Build configuration list for PBXNativeTarget "Blink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7321C8FD6AE64F5D87498102 /* Debug */,
+				1F590FA3D31F48BCB7D91DC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0E15AC8256D4E94AEB4FD8B /* Build configuration list for PBXNativeTarget "BlinkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E99A6CEDFF984E36A41DD15B /* Debug */,
+				A62ECB7E5C31431289FD32B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E856EE5A2BEE46FDB9BBD23B /* Project object */;
+}

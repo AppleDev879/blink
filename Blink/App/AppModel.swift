@@ -1,0 +1,206 @@
+import AppKit
+import Combine
+import Foundation
+import SwiftUI
+
+@MainActor
+final class AppModel: ObservableObject {
+    static let shared = AppModel()
+
+    @Published var showOnboarding: Bool
+    @Published var showPermissionsFollowUp = false
+    @Published var permissionBanner: String?
+
+    let loginItem = LoginItemController()
+    let captureSession = CaptureSession()
+    let cursorTip = CursorTipOCRController()
+    let hotkey = GlobalHotkeyMonitor()
+
+    private var statusItem: NSStatusItem?
+    private var cancellables = Set<AnyCancellable>()
+
+    private let onboardingKey = "blink.didCompleteOnboarding"
+    private let experimentalKey = "blink.experimentalCursorOCR"
+
+    private init() {
+        showOnboarding = !UserDefaults.standard.bool(forKey: onboardingKey)
+        cursorTip.isEnabled = UserDefaults.standard.bool(forKey: experimentalKey)
+    }
+
+    func start() {
+        setupStatusItem()
+        captureSession.statusItem = statusItem
+        cursorTip.statusItem = statusItem
+
+        hotkey.register(.captureDefault) { [weak self] in
+            self?.captureSession.beginCapture()
+        }
+
+        if cursorTip.isEnabled {
+            cursorTip.setEnabled(true)
+        }
+
+        refreshPermissionBanner()
+
+        if showOnboarding {
+            OnboardingWindowController.shared.present(model: self)
+        }
+    }
+
+    func completeOnboarding() {
+        showOnboarding = false
+        UserDefaults.standard.set(true, forKey: onboardingKey)
+        OnboardingWindowController.shared.presentPermissions(model: self)
+    }
+
+    func completePermissions() {
+        OnboardingWindowController.shared.close()
+        refreshPermissionBanner()
+    }
+
+    func toggleExperimental() {
+        let next = !cursorTip.isEnabled
+        UserDefaults.standard.set(next, forKey: experimentalKey)
+        cursorTip.setEnabled(next)
+        rebuildMenu()
+    }
+
+    func refreshPermissionBanner() {
+        if !PermissionGate.screenRecording().isUsable {
+            permissionBanner = "Screen Recording is off — capture won’t work."
+        } else {
+            permissionBanner = nil
+        }
+        rebuildMenu()
+    }
+
+    private func setupStatusItem() {
+        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        if let button = item.button {
+            if let image = NSImage(named: "MenuBarIcon") {
+                image.isTemplate = true
+                button.image = image
+            } else {
+                button.title = "⌥"
+            }
+            button.toolTip = "Blink — \(HotkeyChord.captureDefault.displayLabel)"
+        }
+        statusItem = item
+        rebuildMenu()
+    }
+
+    func rebuildMenu() {
+        let menu = NSMenu()
+
+        if let banner = permissionBanner {
+            let bannerItem = NSMenuItem(title: banner, action: #selector(openScreenRecordingSettings), keyEquivalent: "")
+            bannerItem.target = self
+            menu.addItem(bannerItem)
+            menu.addItem(.separator())
+        }
+
+        let capture = NSMenuItem(
+            title: "Capture  \(HotkeyChord.captureDefault.displayLabel)",
+            action: #selector(triggerCapture),
+            keyEquivalent: "2"
+        )
+        capture.keyEquivalentModifierMask = [.command, .shift]
+        capture.target = self
+        menu.addItem(capture)
+
+        menu.addItem(.separator())
+
+        let experimentalHeader = NSMenuItem(title: "Experimental", action: nil, keyEquivalent: "")
+        experimentalHeader.isEnabled = false
+        menu.addItem(experimentalHeader)
+
+        let tip = NSMenuItem(
+            title: cursorTip.isEnabled ? "Hover OCR: On" : "Hover OCR: Off",
+            action: #selector(toggleExperimentalAction),
+            keyEquivalent: ""
+        )
+        tip.target = self
+        tip.state = cursorTip.isEnabled ? .on : .off
+        menu.addItem(tip)
+
+        menu.addItem(.separator())
+
+        let login = NSMenuItem(
+            title: "Open at Login",
+            action: #selector(toggleLogin),
+            keyEquivalent: ""
+        )
+        login.target = self
+        login.state = loginItem.isEnabled ? .on : .off
+        menu.addItem(login)
+
+        menu.addItem(.separator())
+
+        let quit = NSMenuItem(title: "Quit Blink", action: #selector(quit), keyEquivalent: "q")
+        quit.target = self
+        menu.addItem(quit)
+
+        statusItem?.menu = menu
+    }
+
+    @objc private func triggerCapture() {
+        captureSession.beginCapture()
+    }
+
+    @objc private func toggleExperimentalAction() {
+        toggleExperimental()
+    }
+
+    @objc private func toggleLogin() {
+        loginItem.toggle()
+        rebuildMenu()
+    }
+
+    @objc private func openScreenRecordingSettings() {
+        PermissionGate.openSystemSettings(for: .screenRecording)
+    }
+
+    @objc private func quit() {
+        NSApp.terminate(nil)
+    }
+}
+
+@MainActor
+final class OnboardingWindowController {
+    static let shared = OnboardingWindowController()
+    private var window: NSWindow?
+
+    func present(model: AppModel) {
+        let view = OnboardingView {
+            model.completeOnboarding()
+        }
+        show(root: view)
+    }
+
+    func presentPermissions(model: AppModel) {
+        let view = PermissionsFollowUpView {
+            model.completePermissions()
+        }
+        show(root: view)
+    }
+
+    func close() {
+        window?.close()
+        window = nil
+    }
+
+    private func show<Content: View>(root: Content) {
+        let hosting = NSHostingController(rootView: root)
+        let window = NSWindow(contentViewController: hosting)
+        window.title = "Blink"
+        window.styleMask = [.titled, .closable, .fullSizeContentView]
+        window.titlebarAppearsTransparent = true
+        window.backgroundColor = Brand.inkNS
+        window.isReleasedWhenClosed = false
+        window.center()
+        window.level = .floating
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        self.window = window
+    }
+}
