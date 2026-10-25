@@ -1,0 +1,4 @@
+// Shared build settings. Secrets stay out of git — copy Secrets.xcconfig.example.
+// Default placeholder first; Secrets.xcconfig overrides when present.
+BLINK_TELEMETRYDECK_APP_ID = YOUR_TELEMETRYDECK_APP_ID
+#include? "Secrets.xcconfig"

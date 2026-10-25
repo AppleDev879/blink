@@ -25,6 +25,19 @@
 		E67B777C3D7C4B35B039BB94 /* HotkeyChordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */; };
 		4F9D0843B45446418C702EFF /* OCRTextNormalizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */; };
 		A0DEA6DBA60B4B4F90360060 /* SelectionGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */; };
+		33F7D697B13F4583B6AF8F54 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8EE26F996D48EB95F23826 /* AnalyticsEvent.swift */; };
+		006B54CEABCC47F2910539FB /* AnalyticsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C43BB5D2349E5B491F3C7 /* AnalyticsClient.swift */; };
+		AAB528645E2845D9BF70F349 /* PromptTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CFC63076E546E3878760C6 /* PromptTemplate.swift */; };
+		8C1E03CD529940928EFDD2F8 /* ModifierFlagParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB760567E0D14B85ABDE50DE /* ModifierFlagParser.swift */; };
+		39B4EC8116B44DF29F1D9DA8 /* ModifierHoldDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE6DDFE2DDD4296AB14BCE6 /* ModifierHoldDetector.swift */; };
+		A1ADC48BECD5421F880DAF0E /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17008E011DB74A49AD5887D1 /* KeychainStore.swift */; };
+		83C233D0B145446395E1C411 /* PromptTransformSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E9E50DE8DB494388F43502 /* PromptTransformSettings.swift */; };
+		08A04F68EC8F4F1098F532B9 /* PromptTransformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B08A421078C4A97AF259319 /* PromptTransformService.swift */; };
+		BB0D90DB522B4B86B587335F /* CopyPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6BE3B902A49D08D9436E6 /* CopyPipeline.swift */; };
+		529FA6940BF2429F8AD4B379 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99066C7CCF5461CA7D40E91 /* SettingsView.swift */; };
+		85D4236C0585429BA67C0266 /* PromptTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7572109F59B427C9E78B038 /* PromptTemplateTests.swift */; };
+		BB3D082986F545589D084C6F /* ModifierFlagParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671298C503264557806B56BB /* ModifierFlagParserTests.swift */; };
+		78D2F1D8C1F6471EB45AE3AD /* PromptTransformServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B810DCBC19634E26BBA02D14 /* PromptTransformServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +64,21 @@
 		ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyChordTests.swift; sourceTree = "<group>"; };
 		0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTextNormalizerTests.swift; sourceTree = "<group>"; };
 		194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionGeometryTests.swift; sourceTree = "<group>"; };
+		BD8EE26F996D48EB95F23826 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
+		E09C43BB5D2349E5B491F3C7 /* AnalyticsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsClient.swift; sourceTree = "<group>"; };
+		F1CFC63076E546E3878760C6 /* PromptTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTemplate.swift; sourceTree = "<group>"; };
+		DB760567E0D14B85ABDE50DE /* ModifierFlagParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierFlagParser.swift; sourceTree = "<group>"; };
+		AEE6DDFE2DDD4296AB14BCE6 /* ModifierHoldDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierHoldDetector.swift; sourceTree = "<group>"; };
+		17008E011DB74A49AD5887D1 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		49E9E50DE8DB494388F43502 /* PromptTransformSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTransformSettings.swift; sourceTree = "<group>"; };
+		8B08A421078C4A97AF259319 /* PromptTransformService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTransformService.swift; sourceTree = "<group>"; };
+		04A6BE3B902A49D08D9436E6 /* CopyPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPipeline.swift; sourceTree = "<group>"; };
+		F99066C7CCF5461CA7D40E91 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B7572109F59B427C9E78B038 /* PromptTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTemplateTests.swift; sourceTree = "<group>"; };
+		671298C503264557806B56BB /* ModifierFlagParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierFlagParserTests.swift; sourceTree = "<group>"; };
+		B810DCBC19634E26BBA02D14 /* PromptTransformServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTransformServiceTests.swift; sourceTree = "<group>"; };
+		4D1B80DABBD74D6C981F4DF3 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		C3DEEADA1F1C4F3A954B7A25 /* Secrets.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig.example; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -152,6 +180,9 @@
 				C0226CFF8915407785D3CAE1 /* Onboarding */,
 				CA84E64E894243779180C1CE /* LoginItem */,
 				3ECA5C540EA4425EB6F5027C /* Feedback */,
+				E84B1FEE2C8F42C9982CE8BE /* Analytics */,
+				179E961E9A55418192AB4B8B /* PromptTransform */,
+				3B32C23B2F1A47DCB2D8C8E2 /* Settings */,
 				64F6878622C94478B2982C8D /* Resources */,
 				0D673B05AE314AD6B50A920E /* Info.plist */,
 				E815B516426842AF869872A8 /* Blink.entitlements */,
@@ -165,6 +196,9 @@
 				ACB88483CC7A4943BA10C2DE /* HotkeyChordTests.swift */,
 				0837B30187D448FDB8DDA681 /* OCRTextNormalizerTests.swift */,
 				194C06438DB4493E8F4A07C8 /* SelectionGeometryTests.swift */,
+				B7572109F59B427C9E78B038 /* PromptTemplateTests.swift */,
+				671298C503264557806B56BB /* ModifierFlagParserTests.swift */,
+				B810DCBC19634E26BBA02D14 /* PromptTransformServiceTests.swift */,
 			);
 			path = BlinkTests;
 			sourceTree = "<group>";
@@ -183,9 +217,50 @@
 			children = (
 				5AAC127406A542CF9FA10313 /* Blink */,
 				DFD75ECCDA5A4110A9592AA2 /* BlinkTests */,
+				5031EEBF1E4549D495D5603B /* Config */,
 				CE215467E9814C7BB7A0BDCD /* Products */,
 			);
 			name = Main;
+			sourceTree = "<group>";
+		};
+		E84B1FEE2C8F42C9982CE8BE /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				BD8EE26F996D48EB95F23826 /* AnalyticsEvent.swift */,
+				E09C43BB5D2349E5B491F3C7 /* AnalyticsClient.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		179E961E9A55418192AB4B8B /* PromptTransform */ = {
+			isa = PBXGroup;
+			children = (
+				F1CFC63076E546E3878760C6 /* PromptTemplate.swift */,
+				DB760567E0D14B85ABDE50DE /* ModifierFlagParser.swift */,
+				AEE6DDFE2DDD4296AB14BCE6 /* ModifierHoldDetector.swift */,
+				17008E011DB74A49AD5887D1 /* KeychainStore.swift */,
+				49E9E50DE8DB494388F43502 /* PromptTransformSettings.swift */,
+				8B08A421078C4A97AF259319 /* PromptTransformService.swift */,
+				04A6BE3B902A49D08D9436E6 /* CopyPipeline.swift */,
+			);
+			path = PromptTransform;
+			sourceTree = "<group>";
+		};
+		3B32C23B2F1A47DCB2D8C8E2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F99066C7CCF5461CA7D40E91 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5031EEBF1E4549D495D5603B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4D1B80DABBD74D6C981F4DF3 /* Shared.xcconfig */,
+				C3DEEADA1F1C4F3A954B7A25 /* Secrets.xcconfig.example */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +376,16 @@
 				D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */,
 				0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */,
 				256D0FC15E9B4FA098192069 /* ClipboardFeedback.swift in Sources */,
+				33F7D697B13F4583B6AF8F54 /* AnalyticsEvent.swift in Sources */,
+				006B54CEABCC47F2910539FB /* AnalyticsClient.swift in Sources */,
+				AAB528645E2845D9BF70F349 /* PromptTemplate.swift in Sources */,
+				8C1E03CD529940928EFDD2F8 /* ModifierFlagParser.swift in Sources */,
+				39B4EC8116B44DF29F1D9DA8 /* ModifierHoldDetector.swift in Sources */,
+				A1ADC48BECD5421F880DAF0E /* KeychainStore.swift in Sources */,
+				83C233D0B145446395E1C411 /* PromptTransformSettings.swift in Sources */,
+				08A04F68EC8F4F1098F532B9 /* PromptTransformService.swift in Sources */,
+				BB0D90DB522B4B86B587335F /* CopyPipeline.swift in Sources */,
+				529FA6940BF2429F8AD4B379 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +396,9 @@
 				E67B777C3D7C4B35B039BB94 /* HotkeyChordTests.swift in Sources */,
 				4F9D0843B45446418C702EFF /* OCRTextNormalizerTests.swift in Sources */,
 				A0DEA6DBA60B4B4F90360060 /* SelectionGeometryTests.swift in Sources */,
+				85D4236C0585429BA67C0266 /* PromptTemplateTests.swift in Sources */,
+				BB3D082986F545589D084C6F /* ModifierFlagParserTests.swift in Sources */,
+				78D2F1D8C1F6471EB45AE3AD /* PromptTransformServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,8 +481,10 @@
 		};
 		7321C8FD6AE64F5D87498102 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D1B80DABBD74D6C981F4DF3 /* Shared.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BLINK_TELEMETRYDECK_APP_ID = "$(BLINK_TELEMETRYDECK_APP_ID)";
 				CODE_SIGN_ENTITLEMENTS = Blink/Blink.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -414,8 +504,10 @@
 		};
 		1F590FA3D31F48BCB7D91DC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D1B80DABBD74D6C981F4DF3 /* Shared.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BLINK_TELEMETRYDECK_APP_ID = "$(BLINK_TELEMETRYDECK_APP_ID)";
 				CODE_SIGN_ENTITLEMENTS = Blink/Blink.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

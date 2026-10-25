@@ -32,5 +32,7 @@
 	<string>Copyright © 2026 Blink. MIT License.</string>
 	<key>NSScreenCaptureUsageDescription</key>
 	<string>Blink captures the region you frame so it can copy the text.</string>
+	<key>BlinkTelemetryDeckAppID</key>
+	<string>$(BLINK_TELEMETRYDECK_APP_ID)</string>
 </dict>
 </plist>

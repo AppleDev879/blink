@@ -32,6 +32,13 @@ final class AppModel: ObservableObject {
             self?.captureSession.beginCapture()
         }
 
+        PromptTransformSettings.shared.objectWillChange
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.rebuildMenu()
+            }
+            .store(in: &cancellables)
+
         refreshPermissionBanner()
 
         if showOnboarding {
@@ -57,6 +64,15 @@ final class AppModel: ObservableObject {
             permissionBanner = nil
         }
         rebuildMenu()
+    }
+
+    func openSettings() {
+        NSApp.activate(ignoringOtherApps: true)
+        if #available(macOS 14.0, *) {
+            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+        } else {
+            NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
+        }
     }
 
     private func setupStatusItem() {
@@ -104,6 +120,24 @@ final class AppModel: ObservableObject {
         login.state = loginItem.isEnabled ? .on : .off
         menu.addItem(login)
 
+        let settings = NSMenuItem(
+            title: "Settings…",
+            action: #selector(openSettingsAction),
+            keyEquivalent: ","
+        )
+        settings.target = self
+        menu.addItem(settings)
+
+        if PromptTransformSettings.shared.needsAPIKeyHint {
+            let hint = NSMenuItem(
+                title: "Prompt transform: add API key in Settings",
+                action: #selector(openSettingsAction),
+                keyEquivalent: ""
+            )
+            hint.target = self
+            menu.addItem(hint)
+        }
+
         menu.addItem(.separator())
 
         let quit = NSMenuItem(title: "Quit Blink", action: #selector(quit), keyEquivalent: "q")
@@ -119,7 +153,15 @@ final class AppModel: ObservableObject {
 
     @objc private func toggleLogin() {
         loginItem.toggle()
+        AnalyticsClient.shared.track(
+            .openAtLoginToggled,
+            parameters: ["enabled": loginItem.isEnabled ? "true" : "false"]
+        )
         rebuildMenu()
+    }
+
+    @objc private func openSettingsAction() {
+        openSettings()
     }
 
     @objc private func openScreenRecordingSettings() {

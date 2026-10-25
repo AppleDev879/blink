@@ -6,9 +6,8 @@ struct BlinkApp: App {
 
     var body: some Scene {
         // Menu bar UI is owned by AppModel's NSStatusItem so we can flash the glyph.
-        // Settings scene kept for future expansion; hidden by default.
         Settings {
-            EmptyView()
+            SettingsView()
         }
     }
 }
@@ -19,6 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Ensure we stay accessory even if Info.plist is overridden in debug.
         NSApp.setActivationPolicy(.accessory)
         AppModel.shared.start()
+        AnalyticsClient.shared.track(.appLaunch)
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
