@@ -29,11 +29,4 @@ enum SelectionGeometry {
         let intersection = rect.intersection(bounds)
         return intersection.isNull ? .zero : intersection
     }
-
-    /// Expand a point into a square capture region centered on the cursor tip.
-    static func tipRegion(around point: CGPoint, side: CGFloat, within bounds: CGRect) -> CGRect {
-        let half = side / 2
-        let raw = CGRect(x: point.x - half, y: point.y - half, width: side, height: side)
-        return clamp(raw, to: bounds)
-    }
 }

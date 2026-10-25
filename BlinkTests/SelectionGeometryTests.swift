@@ -23,12 +23,4 @@ final class SelectionGeometryTests: XCTestCase {
         let clamped = SelectionGeometry.clamp(CGRect(x: -10, y: 50, width: 40, height: 40), to: bounds)
         XCTAssertEqual(clamped, CGRect(x: 0, y: 50, width: 30, height: 40))
     }
-
-    func testTipRegionCenteredAndClamped() {
-        let bounds = CGRect(x: 0, y: 0, width: 200, height: 200)
-        let region = SelectionGeometry.tipRegion(around: CGPoint(x: 5, y: 5), side: 40, within: bounds)
-        XCTAssertEqual(region.minX, 0)
-        XCTAssertEqual(region.minY, 0)
-        XCTAssertLessThanOrEqual(region.width, 40)
-    }
 }

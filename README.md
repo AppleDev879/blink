@@ -15,10 +15,18 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any disp
 | | |
 | --- | --- |
 | **⌘⇧2 capture** | Crosshairs overlay → drag-select → OCR → clipboard |
-| **Menu bar** | Capture, Experimental Hover OCR, Open at Login, Quit |
+| **Menu bar** | Capture, Open at Login, Quit |
 | **Open at Login** | `SMAppService` toggle |
-| **Onboarding** | One brand screen, then Screen Recording / Accessibility prompts |
-| **Experimental: Hover OCR** | Opt-in. Outlines text near the cursor; click copies. Gated under **Experimental** in the menu |
+| **Onboarding** | One brand screen, then Screen Recording prompt |
+
+## Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| **⌘⇧2** | Start capture (crosshairs overlay) |
+| **Esc** | Cancel capture — dismiss overlay, no OCR, no clipboard change |
+
+While the overlay is up, the system pointer is hidden; mint crosshairs track the mouse 1:1 until you release a selection, press Esc, or the session ends.
 
 ## Build & run
 
@@ -33,7 +41,7 @@ xcodebuild -scheme Blink -configuration Debug -destination 'platform=macOS' buil
 xcodebuild -scheme Blink -configuration Debug -destination 'platform=macOS' test
 ```
 
-Run the app from Xcode (⌘R). Grant **Screen Recording** when prompted (required for capture). **Accessibility** is only needed for Experimental click-to-copy across other apps.
+Run the app from Xcode (⌘R). Grant **Screen Recording** when prompted (required for capture).
 
 Unsigned local builds: System Settings → Privacy & Security may ask you to allow Blink after the first launch.
 
@@ -41,14 +49,9 @@ Unsigned local builds: System Settings → Privacy & Security may ask you to all
 
 | Permission | Why |
 | --- | --- |
-| **Screen Recording** | Capture the framed region (and Experimental hover region) |
-| **Accessibility** | Optional — Experimental hover OCR click-to-copy in other apps |
+| **Screen Recording** | Capture the framed region |
 
 If Screen Recording is off, the menu shows an actionable banner that opens System Settings.
-
-## Experimental Hover OCR
-
-Off by default. Enable **Experimental → Hover OCR** in the menu bar. Blink periodically OCRs a small region around the pointer, draws a mint outline on the hit text, and copies it on click. Expect higher CPU while enabled; turn it off when you don’t need it.
 
 ## Tests & CI
 

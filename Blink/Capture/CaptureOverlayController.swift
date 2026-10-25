@@ -7,6 +7,9 @@ final class CaptureOverlayController: NSObject {
     private var windows: [CaptureOverlayWindow] = []
     private var startPoint: CGPoint?
     private var currentRect: CGRect?
+    private var escapeMonitor: Any?
+    private var didHideCursor = false
+    private var isPresented = false
     var onComplete: ((CGRect?) -> Void)?
 
     func present() {
@@ -17,16 +20,20 @@ final class CaptureOverlayController: NSObject {
             window.orderFrontRegardless()
             windows.append(window)
         }
+        isPresented = true
+        hideSystemCursor()
+        installEscapeMonitor()
         NSApp.activate(ignoringOtherApps: true)
+        windows.first?.makeKeyAndOrderFront(nil)
     }
 
     func dismiss(commit: Bool) {
         let result = commit ? currentRect : nil
-        windows.forEach { $0.orderOut(nil) }
-        windows.removeAll()
+        let wasPresented = isPresented
+        teardownUI()
         startPoint = nil
         currentRect = nil
-        if commit {
+        if commit, wasPresented {
             onComplete?(result)
         }
     }
@@ -44,6 +51,7 @@ final class CaptureOverlayController: NSObject {
     }
 
     fileprivate func endDrag(at point: CGPoint) {
+        guard isPresented else { return }
         updateDrag(to: point)
         let finalized = currentRect.flatMap {
             SelectionGeometry.rect(
@@ -53,8 +61,7 @@ final class CaptureOverlayController: NSObject {
             )
         }
         currentRect = finalized
-        windows.forEach { $0.orderOut(nil) }
-        windows.removeAll()
+        teardownUI()
         startPoint = nil
         let rect = currentRect
         currentRect = nil
@@ -62,8 +69,48 @@ final class CaptureOverlayController: NSObject {
     }
 
     fileprivate func cancel() {
+        guard isPresented else { return }
         dismiss(commit: false)
         onComplete?(nil)
+    }
+
+    private func teardownUI() {
+        isPresented = false
+        removeEscapeMonitor()
+        restoreSystemCursor()
+        windows.forEach { $0.orderOut(nil) }
+        windows.removeAll()
+    }
+
+    private func hideSystemCursor() {
+        guard !didHideCursor else { return }
+        NSCursor.hide()
+        didHideCursor = true
+    }
+
+    private func restoreSystemCursor() {
+        guard didHideCursor else { return }
+        NSCursor.unhide()
+        didHideCursor = false
+    }
+
+    private func installEscapeMonitor() {
+        removeEscapeMonitor()
+        // Local monitor so Esc works before/during drag even if a view loses first responder.
+        escapeMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard event.keyCode == 53 else { return event }
+            Task { @MainActor in
+                self?.cancel()
+            }
+            return nil
+        }
+    }
+
+    private func removeEscapeMonitor() {
+        if let escapeMonitor {
+            NSEvent.removeMonitor(escapeMonitor)
+            self.escapeMonitor = nil
+        }
     }
 }
 
@@ -110,6 +157,7 @@ private final class CaptureOverlayView: NSView {
 
     override func viewDidMoveToWindow() {
         window?.makeKey()
+        window?.makeFirstResponder(self)
     }
 
     override func draw(_ dirtyRect: NSRect) {
