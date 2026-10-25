@@ -15,9 +15,11 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any disp
 | | |
 | --- | --- |
 | **⌘⇧2 capture** | Crosshairs overlay → drag-select → OCR → clipboard |
-| **Menu bar** | Capture, Open at Login, Quit |
+| **Menu bar** | Capture, Open at Login, Settings, Quit |
 | **Open at Login** | `SMAppService` toggle |
 | **Onboarding** | One brand screen, then Screen Recording prompt |
+| **Analytics** | Opt-in anonymous TelemetryDeck signals (off by default) |
+| **Prompt transform** | Hold ⌃ (configurable) at copy time to run OCR through your prompt |
 
 ## Shortcuts
 
@@ -53,9 +55,31 @@ Unsigned local builds: System Settings → Privacy & Security may ask you to all
 
 If Screen Recording is off, the menu shows an actionable banner that opens System Settings.
 
+## Analytics (opt-in)
+
+Off by default. Settings → **Share anonymous analytics**. Signals are TelemetryDeck-compatible event names only (app launch, capture completed, OCR empty/fail, open-at-login toggled, prompt-transform used). No OCR text, no prompts, no keys.
+
+### TelemetryDeck App ID
+
+1. Create an app at [TelemetryDeck](https://telemetrydeck.com) and copy the App ID.
+2. Locally:
+
+```bash
+cp Config/Secrets.xcconfig.example Config/Secrets.xcconfig
+# edit Config/Secrets.xcconfig — set BLINK_TELEMETRYDECK_APP_ID
+```
+
+`Config/Secrets.xcconfig` is gitignored. `Blink/Info.plist` reads `$(BLINK_TELEMETRYDECK_APP_ID)` via `Config/Shared.xcconfig`. Without a real App ID, the toggle does nothing harmful — signals are skipped.
+
+## Prompt transform
+
+Settings → enable **Transform with prompt when ⌃ held**, edit the template (`{{text}}` placeholder), paste an OpenAI-compatible API key (Keychain), set endpoint/model/timeout.
+
+At capture release: if the modifier is held and a key is saved, Blink runs the prompt and copies the model reply. No key? Raw OCR is copied; the menu shows one quiet hint to add a key. Never nags.
+
 ## Tests & CI
 
-- Unit tests cover hotkey parsing, OCR text normalization, and selection geometry (`BlinkTests`).
+- Unit tests cover hotkey parsing, OCR text normalization, selection geometry, prompt template interpolation, and modifier flag parsing (`BlinkTests`).
 - GitHub Actions (`.github/workflows/ci.yml`) builds and runs tests on `macos-latest` for every push/PR.
 - Overlay + global hotkey + clipboard cannot be fully driven in CI — see [MANUAL_SMOKE.md](MANUAL_SMOKE.md).
 

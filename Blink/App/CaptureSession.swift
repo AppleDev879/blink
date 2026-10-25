@@ -13,7 +13,6 @@ final class CaptureSession {
 
     func beginCapture() {
         guard !isCapturing else { return }
-
         if !PermissionGate.screenRecording().isUsable {
             PermissionGate.requestScreenRecording()
             ClipboardFeedback.flashFailure(statusItem: statusItem, message: "⊘")
@@ -36,9 +35,10 @@ final class CaptureSession {
         do {
             let image = try await cropper.capture(rectInAppKit: rect)
             let text = try await recognizer.recognize(cgImage: image)
-            ClipboardFeedback.copy(text)
+            _ = await CopyPipeline.copyText(text, source: .capture)
             ClipboardFeedback.flashSuccess(statusItem: statusItem)
         } catch {
+            AnalyticsClient.shared.track(.ocrEmptyOrFail)
             ClipboardFeedback.flashFailure(statusItem: statusItem, message: "·")
         }
     }

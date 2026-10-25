@@ -23,6 +23,9 @@ Icon?
 .build/
 .swiftpm/
 
+# Local secrets (TelemetryDeck App ID, etc.)
+Config/Secrets.xcconfig
+
 # Editors
 .idea/
 .vscode/
