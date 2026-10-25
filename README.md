@@ -15,7 +15,8 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any disp
 | | |
 | --- | --- |
 | **⌘⇧2 capture** | Crosshairs overlay → drag-select → OCR → clipboard |
-| **Menu bar** | Capture, Open at Login, Settings, Quit |
+| **Menu bar** | Capture, Open at Login, Settings, Check for Updates…, Quit |
+| **Auto-updates** | [Sparkle 2](https://sparkle-project.org/) via GitHub Releases appcast (direct distribution) |
 | **Open at Login** | `SMAppService` toggle |
 | **Onboarding** | One brand screen, then Screen Recording prompt |
 | **Analytics** | Opt-in anonymous TelemetryDeck signals (off by default) |
@@ -77,11 +78,20 @@ Settings → enable **Transform with prompt when ⌃ held**, edit the template (
 
 At capture release: if the modifier is held and a key is saved, Blink runs the prompt and copies the model reply. No key? Raw OCR is copied; the menu shows one quiet hint to add a key. Never nags.
 
+## Auto-updates (Sparkle)
+
+Direct (non–Mac App Store) builds check for updates against:
+
+`https://github.com/AppleDev879/blink/releases/latest/download/appcast.xml`
+
+Menu bar → **Check for Updates…**. Quiet background checks are enabled (daily). Before shipping updates you must generate EdDSA keys, put the **public** key in `SUPublicEDKey`, and never commit the private key. Full release recipe (notarize → `sign_update` → GitHub Release + appcast): [docs/sparkle-setup.md](docs/sparkle-setup.md). Sample feed: [sparkle/appcast.example.xml](sparkle/appcast.example.xml).
+
 ## Tests & CI
 
 - Unit tests cover hotkey parsing, OCR text normalization, selection geometry, prompt template interpolation, and modifier flag parsing (`BlinkTests`).
 - GitHub Actions (`.github/workflows/ci.yml`) builds and runs tests on `macos-latest` for every push/PR.
 - Overlay + global hotkey + clipboard cannot be fully driven in CI — see [MANUAL_SMOKE.md](MANUAL_SMOKE.md).
+- Tests do not exercise network update checks.
 
 ## License
 

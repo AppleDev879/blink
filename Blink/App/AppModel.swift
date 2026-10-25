@@ -140,6 +140,16 @@ final class AppModel: ObservableObject {
 
         menu.addItem(.separator())
 
+        let updates = NSMenuItem(
+            title: "Check for Updates…",
+            action: #selector(UpdateController.checkForUpdates(_:)),
+            keyEquivalent: ""
+        )
+        updates.target = UpdateController.shared
+        menu.addItem(updates)
+
+        menu.addItem(.separator())
+
         let quit = NSMenuItem(title: "Quit Blink", action: #selector(quit), keyEquivalent: "q")
         quit.target = self
         menu.addItem(quit)

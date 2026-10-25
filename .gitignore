@@ -26,6 +26,12 @@ Icon?
 # Local secrets (TelemetryDeck App ID, etc.)
 Config/Secrets.xcconfig
 
+# Sparkle — never commit EdDSA private keys
+eddsa_priv.pem
+*.sparkle_private
+sparkle-keys/
+**/sparkle_eddsa_private*
+
 # Editors
 .idea/
 .vscode/

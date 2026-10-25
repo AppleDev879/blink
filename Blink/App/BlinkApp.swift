@@ -17,6 +17,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Ensure we stay accessory even if Info.plist is overridden in debug.
         NSApp.setActivationPolicy(.accessory)
+        // Touch updater so SPUStandardUpdaterController starts before the menu is used.
+        _ = UpdateController.shared
         AppModel.shared.start()
         AnalyticsClient.shared.track(.appLaunch)
     }
