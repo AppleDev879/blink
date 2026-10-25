@@ -19,7 +19,6 @@
 		C73BB127F3C341ADAB3CA17A /* HotkeyChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */; };
 		FD0BD0B2CE954CA5B647E781 /* PermissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3072ED97AB0460C938F5529 /* PermissionStatus.swift */; };
 		D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F89FA1B914B0E90BB6446 /* OnboardingView.swift */; };
-		A1E40EF752334A56BD52A332 /* CursorTipOCRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */; };
 		0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB9E26ED729402D8056F6C3 /* LoginItemController.swift */; };
 		256D0FC15E9B4FA098192069 /* ClipboardFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */; };
 		09A70005CFF74A1CBE8A2B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1E03B6E8FD4A3B83B7390B /* Assets.xcassets */; };
@@ -44,7 +43,6 @@
 		13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyChord.swift; sourceTree = "<group>"; };
 		B3072ED97AB0460C938F5529 /* PermissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStatus.swift; sourceTree = "<group>"; };
 		4A5F89FA1B914B0E90BB6446 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorTipOCRController.swift; sourceTree = "<group>"; };
 		5DB9E26ED729402D8056F6C3 /* LoginItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemController.swift; sourceTree = "<group>"; };
 		EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardFeedback.swift; sourceTree = "<group>"; };
 		9A1E03B6E8FD4A3B83B7390B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,14 +116,6 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		80DB42DF1431401CA92A6852 /* Experimental */ = {
-			isa = PBXGroup;
-			children = (
-				5BF71B434A094C5E895DE93A /* CursorTipOCRController.swift */,
-			);
-			path = Experimental;
-			sourceTree = "<group>";
-		};
 		CA84E64E894243779180C1CE /* LoginItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +150,6 @@
 				E803DE198D694E8BB269A31A /* Hotkey */,
 				DC68C889FB634CAFA303D353 /* Permissions */,
 				C0226CFF8915407785D3CAE1 /* Onboarding */,
-				80DB42DF1431401CA92A6852 /* Experimental */,
 				CA84E64E894243779180C1CE /* LoginItem */,
 				3ECA5C540EA4425EB6F5027C /* Feedback */,
 				64F6878622C94478B2982C8D /* Resources */,
@@ -310,7 +299,6 @@
 				C73BB127F3C341ADAB3CA17A /* HotkeyChord.swift in Sources */,
 				FD0BD0B2CE954CA5B647E781 /* PermissionStatus.swift in Sources */,
 				D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */,
-				A1E40EF752334A56BD52A332 /* CursorTipOCRController.swift in Sources */,
 				0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */,
 				256D0FC15E9B4FA098192069 /* ClipboardFeedback.swift in Sources */,
 			);

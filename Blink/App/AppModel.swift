@@ -13,31 +13,23 @@ final class AppModel: ObservableObject {
 
     let loginItem = LoginItemController()
     let captureSession = CaptureSession()
-    let cursorTip = CursorTipOCRController()
     let hotkey = GlobalHotkeyMonitor()
 
     private var statusItem: NSStatusItem?
     private var cancellables = Set<AnyCancellable>()
 
     private let onboardingKey = "blink.didCompleteOnboarding"
-    private let experimentalKey = "blink.experimentalCursorOCR"
 
     private init() {
         showOnboarding = !UserDefaults.standard.bool(forKey: onboardingKey)
-        cursorTip.isEnabled = UserDefaults.standard.bool(forKey: experimentalKey)
     }
 
     func start() {
         setupStatusItem()
         captureSession.statusItem = statusItem
-        cursorTip.statusItem = statusItem
 
         hotkey.register(.captureDefault) { [weak self] in
             self?.captureSession.beginCapture()
-        }
-
-        if cursorTip.isEnabled {
-            cursorTip.setEnabled(true)
         }
 
         refreshPermissionBanner()
@@ -56,13 +48,6 @@ final class AppModel: ObservableObject {
     func completePermissions() {
         OnboardingWindowController.shared.close()
         refreshPermissionBanner()
-    }
-
-    func toggleExperimental() {
-        let next = !cursorTip.isEnabled
-        UserDefaults.standard.set(next, forKey: experimentalKey)
-        cursorTip.setEnabled(next)
-        rebuildMenu()
     }
 
     func refreshPermissionBanner() {
@@ -110,21 +95,6 @@ final class AppModel: ObservableObject {
 
         menu.addItem(.separator())
 
-        let experimentalHeader = NSMenuItem(title: "Experimental", action: nil, keyEquivalent: "")
-        experimentalHeader.isEnabled = false
-        menu.addItem(experimentalHeader)
-
-        let tip = NSMenuItem(
-            title: cursorTip.isEnabled ? "Hover OCR: On" : "Hover OCR: Off",
-            action: #selector(toggleExperimentalAction),
-            keyEquivalent: ""
-        )
-        tip.target = self
-        tip.state = cursorTip.isEnabled ? .on : .off
-        menu.addItem(tip)
-
-        menu.addItem(.separator())
-
         let login = NSMenuItem(
             title: "Open at Login",
             action: #selector(toggleLogin),
@@ -145,10 +115,6 @@ final class AppModel: ObservableObject {
 
     @objc private func triggerCapture() {
         captureSession.beginCapture()
-    }
-
-    @objc private func toggleExperimentalAction() {
-        toggleExperimental()
     }
 
     @objc private func toggleLogin() {

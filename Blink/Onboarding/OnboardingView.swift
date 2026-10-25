@@ -80,7 +80,7 @@ struct PermissionsFollowUpView: View {
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(Brand.paper)
 
-            Text("Blink needs Screen Recording to frame your screen. Accessibility is only for Experimental hover OCR.")
+            Text("Blink needs Screen Recording to frame your screen.")
                 .font(.system(size: 13))
                 .foregroundStyle(Brand.fog)
                 .fixedSize(horizontal: false, vertical: true)
@@ -92,15 +92,6 @@ struct PermissionsFollowUpView: View {
             ) {
                 PermissionGate.requestScreenRecording()
                 PermissionGate.openSystemSettings(for: .screenRecording)
-            }
-
-            permissionRow(
-                title: "Accessibility",
-                detail: "Optional — Experimental click-to-copy.",
-                status: PermissionGate.accessibility()
-            ) {
-                PermissionGate.requestAccessibility()
-                PermissionGate.openSystemSettings(for: .accessibility)
             }
 
             Spacer()
@@ -117,7 +108,7 @@ struct PermissionsFollowUpView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         }
         .padding(28)
-        .frame(width: 420, height: 360)
+        .frame(width: 420, height: 280)
         .background(Brand.ink)
     }
 
