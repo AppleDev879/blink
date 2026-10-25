@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Blink</title>
+    <link>https://github.com/AppleDev879/blink/releases</link>
+    <description>Blink update feed</description>
+    <language>en</language>
+
+    <!--
+      Copy to appcast.xml for each release. Fill edSignature + length from:
+        sign_update Blink-1.0.1.dmg
+      Host as a GitHub Release asset named appcast.xml so clients fetch:
+        https://github.com/AppleDev879/blink/releases/latest/download/appcast.xml
+    -->
+    <item>
+      <title>Version 1.0.1</title>
+      <pubDate>Sun, 25 Oct 2026 12:00:00 +0000</pubDate>
+      <sparkle:version>2</sparkle:version>
+      <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[
+        <ul>
+          <li>Describe the release for users here.</li>
+        </ul>
+      ]]></description>
+      <enclosure
+        url="https://github.com/AppleDev879/blink/releases/download/v1.0.1/Blink-1.0.1.dmg"
+        length="0000000"
+        type="application/octet-stream"
+        sparkle:edSignature="REPLACE_WITH_SIGN_UPDATE_OUTPUT"
+      />
+    </item>
+  </channel>
+</rss>
