@@ -43,6 +43,9 @@
 		78D2F1D8C1F6471EB45AE3AD /* PromptTransformServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B810DCBC19634E26BBA02D14 /* PromptTransformServiceTests.swift */; };
 		B3AB796FF2644ACA85274B18 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 6D2AA65BB1874202B92C3ECD /* Sparkle */; };
 		E0FF88BD680D4988BF6E9493 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712CF4BAD4E4644AB194483 /* UpdateController.swift */; };
+		C4D5E6F7081920A1B0010001 /* LLMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E6F7081920A1A0010001 /* LLMProvider.swift */; };
+		C4D5E6F7081920A1B0010002 /* OllamaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E6F7081920A1A0010002 /* OllamaClient.swift */; };
+		C4D5E6F7081920A1B0010003 /* LLMProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E6F7081920A1A0010003 /* LLMProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +91,9 @@
 		4D1B80DABBD74D6C981F4DF3 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		C3DEEADA1F1C4F3A954B7A25 /* Secrets.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig.example; sourceTree = "<group>"; };
 		E712CF4BAD4E4644AB194483 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
+		C4D5E6F7081920A1A0010001 /* LLMProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMProvider.swift; sourceTree = "<group>"; };
+		C4D5E6F7081920A1A0010002 /* OllamaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaClient.swift; sourceTree = "<group>"; };
+		C4D5E6F7081920A1A0010003 /* LLMProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMProviderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -211,6 +217,7 @@
 				B7572109F59B427C9E78B038 /* PromptTemplateTests.swift */,
 				671298C503264557806B56BB /* ModifierFlagParserTests.swift */,
 				B810DCBC19634E26BBA02D14 /* PromptTransformServiceTests.swift */,
+				C4D5E6F7081920A1A0010003 /* LLMProviderTests.swift */,
 			);
 			path = BlinkTests;
 			sourceTree = "<group>";
@@ -251,6 +258,8 @@
 				DB760567E0D14B85ABDE50DE /* ModifierFlagParser.swift */,
 				AEE6DDFE2DDD4296AB14BCE6 /* ModifierHoldDetector.swift */,
 				17008E011DB74A49AD5887D1 /* KeychainStore.swift */,
+				C4D5E6F7081920A1A0010001 /* LLMProvider.swift */,
+				C4D5E6F7081920A1A0010002 /* OllamaClient.swift */,
 				49E9E50DE8DB494388F43502 /* PromptTransformSettings.swift */,
 				8B08A421078C4A97AF259319 /* PromptTransformService.swift */,
 				04A6BE3B902A49D08D9436E6 /* CopyPipeline.swift */,
@@ -404,6 +413,8 @@
 				8C1E03CD529940928EFDD2F8 /* ModifierFlagParser.swift in Sources */,
 				39B4EC8116B44DF29F1D9DA8 /* ModifierHoldDetector.swift in Sources */,
 				A1ADC48BECD5421F880DAF0E /* KeychainStore.swift in Sources */,
+				C4D5E6F7081920A1B0010001 /* LLMProvider.swift in Sources */,
+				C4D5E6F7081920A1B0010002 /* OllamaClient.swift in Sources */,
 				83C233D0B145446395E1C411 /* PromptTransformSettings.swift in Sources */,
 				08A04F68EC8F4F1098F532B9 /* PromptTransformService.swift in Sources */,
 				BB0D90DB522B4B86B587335F /* CopyPipeline.swift in Sources */,
@@ -422,6 +433,7 @@
 				85D4236C0585429BA67C0266 /* PromptTemplateTests.swift in Sources */,
 				BB3D082986F545589D084C6F /* ModifierFlagParserTests.swift in Sources */,
 				78D2F1D8C1F6471EB45AE3AD /* PromptTransformServiceTests.swift in Sources */,
+				C4D5E6F7081920A1B0010003 /* LLMProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,4 +22,9 @@ final class PromptTransformServiceTests: XCTestCase {
     func testChatCompletionsURLRejectsEmpty() {
         XCTAssertNil(PromptTransformService.chatCompletionsURL(from: "   "))
     }
+
+    func testChatCompletionsURLForOllamaOpenAICompat() {
+        let url = PromptTransformService.chatCompletionsURL(from: OllamaClient.defaultOpenAIEndpoint)
+        XCTAssertEqual(url?.absoluteString, "http://localhost:11434/v1/chat/completions")
+    }
 }
