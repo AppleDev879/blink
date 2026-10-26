@@ -29,6 +29,9 @@ CI builds the app and runs unit tests. Global hotkeys, overlays, Screen Recordin
 2. Click the shortcut control → press a new chord (e.g. ⌘⇧3). Esc while recording cancels.
 3. Confirm menu **Capture** title updates; new chord starts capture; old chord does not.
 4. Toggle **Show copy toast** off → capture still copies, no toast.
+5. Prompt transform → Provider **Off** / **BYOK** / **Local (Ollama)**; confirm copy about your key or local model (Blink doesn’t bill for tokens).
+6. BYOK without a key → capture+⌃ still copies raw OCR; menu shows “Add a key to transform on ⌃”.
+7. Local with Ollama stopped → capture+⌃ copies raw OCR quietly (no error modal).
 
 ## Permissions failure path
 
