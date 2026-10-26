@@ -6,7 +6,7 @@
 
 **Select any part of your screen. Get the text.**
 
-Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any display, and the recognized plain text is copied to your clipboard. No Dock icon. Quiet by design.
+Blink is a macOS menu-bar OCR tool. Press **⌘⇧2** (configurable), drag a region on any display, and the recognized plain text is copied to your clipboard — with a quiet bottom toast. No Dock icon. Quiet by design.
 
 > **Platform:** macOS **14+** (Sonoma). Uses ScreenCaptureKit + Vision. The deployment target is 14 so `SCScreenshotManager` and `SMAppService.mainApp` are available without shims.
 
@@ -14,8 +14,8 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any disp
 
 | | |
 | --- | --- |
-| **⌘⇧2 capture** | Crosshairs overlay → drag-select → OCR → clipboard |
-| **Menu bar** | Capture, Open at Login, Settings, Check for Updates…, Quit |
+| **Capture** | ⌘⇧2 by default (change in Settings) → crosshairs → OCR → clipboard + toast |
+| **Menu bar** | Capture, Open at Login, Settings…, Check for Updates…, Quit |
 | **Auto-updates** | [Sparkle 2](https://sparkle-project.org/) via GitHub Releases appcast (direct distribution) |
 | **Open at Login** | `SMAppService` toggle |
 | **Onboarding** | One brand screen, then Screen Recording prompt |
@@ -26,10 +26,12 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2**, drag a region on any disp
 
 | Shortcut | Action |
 | --- | --- |
-| **⌘⇧2** | Start capture (crosshairs overlay) |
-| **Esc** | Cancel capture — dismiss overlay, no OCR, no clipboard change |
+| **⌘⇧2** (default) | Start capture (crosshairs overlay). Change under Settings → Capture shortcut. |
+| **Esc** | Cancel capture — dismiss overlay, no OCR, no clipboard change. While recording a new shortcut in Settings, Esc cancels recording. |
 
-While the overlay is up, the system pointer is hidden; mint crosshairs track the mouse 1:1 until you release a selection, press Esc, or the session ends.
+Menu → **Capture** shows the current chord. If registration fails (conflict), Blink stays quiet and Settings shows a short hint.
+
+While the overlay is up, the system pointer is hidden; mint crosshairs track the mouse 1:1 until you release a selection, press Esc, or the session ends. After a successful copy, a brief bottom-of-screen toast confirms (toggle in Settings).
 
 ## Build & run
 

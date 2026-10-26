@@ -35,8 +35,11 @@ final class CaptureSession {
         do {
             let image = try await cropper.capture(rectInAppKit: rect)
             let text = try await recognizer.recognize(cgImage: image)
-            _ = await CopyPipeline.copyText(text, source: .capture)
+            let output = await CopyPipeline.copyText(text, source: .capture)
             ClipboardFeedback.flashSuccess(statusItem: statusItem)
+            if CapturePreferences.shared.toastEnabled {
+                CopyToastController.show(characterCount: output.count, selectionRect: rect)
+            }
         } catch {
             AnalyticsClient.shared.track(.ocrEmptyOrFail)
             ClipboardFeedback.flashFailure(statusItem: statusItem, message: "·")

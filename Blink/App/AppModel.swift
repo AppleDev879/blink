@@ -14,6 +14,7 @@ final class AppModel: ObservableObject {
     let loginItem = LoginItemController()
     let captureSession = CaptureSession()
     let hotkey = GlobalHotkeyMonitor()
+    let capturePreferences = CapturePreferences.shared
 
     private var statusItem: NSStatusItem?
     private var cancellables = Set<AnyCancellable>()
@@ -28,9 +29,15 @@ final class AppModel: ObservableObject {
         setupStatusItem()
         captureSession.statusItem = statusItem
 
-        hotkey.register(.captureDefault) { [weak self] in
-            self?.captureSession.beginCapture()
-        }
+        registerCaptureHotkey()
+
+        capturePreferences.$captureChord
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.registerCaptureHotkey()
+            }
+            .store(in: &cancellables)
 
         PromptTransformSettings.shared.objectWillChange
             .receive(on: RunLoop.main)
@@ -44,6 +51,18 @@ final class AppModel: ObservableObject {
         if showOnboarding {
             OnboardingWindowController.shared.present(model: self)
         }
+    }
+
+    func registerCaptureHotkey() {
+        let chord = capturePreferences.captureChord
+        let ok = hotkey.register(chord) { [weak self] in
+            self?.captureSession.beginCapture()
+        }
+        capturePreferences.registrationFailed = !ok
+        if let button = statusItem?.button {
+            button.toolTip = "Blink — \(chord.displayLabel)"
+        }
+        rebuildMenu()
     }
 
     func completeOnboarding() {
@@ -84,7 +103,7 @@ final class AppModel: ObservableObject {
             } else {
                 button.title = "⌥"
             }
-            button.toolTip = "Blink — \(HotkeyChord.captureDefault.displayLabel)"
+            button.toolTip = "Blink — \(capturePreferences.captureChord.displayLabel)"
         }
         statusItem = item
         rebuildMenu()
@@ -92,6 +111,7 @@ final class AppModel: ObservableObject {
 
     func rebuildMenu() {
         let menu = NSMenu()
+        let chord = capturePreferences.captureChord
 
         if let banner = permissionBanner {
             let bannerItem = NSMenuItem(title: banner, action: #selector(openScreenRecordingSettings), keyEquivalent: "")
@@ -100,12 +120,25 @@ final class AppModel: ObservableObject {
             menu.addItem(.separator())
         }
 
+        if capturePreferences.registrationFailed {
+            let hint = NSMenuItem(
+                title: "Capture shortcut unavailable — change in Settings",
+                action: #selector(openSettingsAction),
+                keyEquivalent: ""
+            )
+            hint.target = self
+            menu.addItem(hint)
+            menu.addItem(.separator())
+        }
+
         let capture = NSMenuItem(
-            title: "Capture  \(HotkeyChord.captureDefault.displayLabel)",
+            title: "Capture  \(chord.displayLabel)",
             action: #selector(triggerCapture),
-            keyEquivalent: "2"
+            keyEquivalent: chord.menuKeyEquivalent ?? ""
         )
-        capture.keyEquivalentModifierMask = [.command, .shift]
+        if chord.menuKeyEquivalent != nil {
+            capture.keyEquivalentModifierMask = chord.menuModifierMask
+        }
         capture.target = self
         menu.addItem(capture)
 

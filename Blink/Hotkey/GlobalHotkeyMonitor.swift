@@ -8,11 +8,16 @@ final class GlobalHotkeyMonitor {
     private var handlerRef: EventHandlerRef?
     private var onTrigger: (() -> Void)?
 
+    /// `true` when a hotkey is currently registered.
+    private(set) var isRegistered = false
+
     deinit {
         unregister()
     }
 
-    func register(_ chord: HotkeyChord, onTrigger: @escaping () -> Void) {
+    /// Registers `chord`. Returns `false` on quiet failure (conflict / OS refusal).
+    @discardableResult
+    func register(_ chord: HotkeyChord, onTrigger: @escaping () -> Void) -> Bool {
         unregister()
         self.onTrigger = onTrigger
 
@@ -32,12 +37,15 @@ final class GlobalHotkeyMonitor {
             0,
             &ref
         )
-        guard status == noErr else { return }
+        guard status == noErr, let ref else {
+            isRegistered = false
+            return false
+        }
         hotKeyRef = ref
 
         var eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
         let userData = Unmanaged.passUnretained(self).toOpaque()
-        InstallEventHandler(
+        let handlerStatus = InstallEventHandler(
             GetApplicationEventTarget(),
             { (_, event, userData) -> OSStatus in
                 guard let userData else { return noErr }
@@ -64,6 +72,16 @@ final class GlobalHotkeyMonitor {
             userData,
             &handlerRef
         )
+        guard handlerStatus == noErr else {
+            if let hotKeyRef {
+                UnregisterEventHotKey(hotKeyRef)
+                self.hotKeyRef = nil
+            }
+            isRegistered = false
+            return false
+        }
+        isRegistered = true
+        return true
     }
 
     func unregister() {
@@ -76,5 +94,6 @@ final class GlobalHotkeyMonitor {
             self.handlerRef = nil
         }
         onTrigger = nil
+        isRegistered = false
     }
 }

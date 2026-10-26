@@ -6,6 +6,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F64701B0010003 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F64701A0010003 /* HotkeyRecorderView.swift */; };
+		A1B2C3D4E5F64701B0010002 /* CopyToastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F64701A0010002 /* CopyToastController.swift */; };
+		A1B2C3D4E5F64701B0010001 /* CapturePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F64701A0010001 /* CapturePreferences.swift */; };
 		F5FA175704BA42F290273BA5 /* BlinkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593D80789114942A023E60F /* BlinkApp.swift */; };
 		9D49959EA81443548558C3E7 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C9F44B9F1C4DF9B2692AFC /* AppModel.swift */; };
 		D5394E5912B047D89F0A856E /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE8B47AA5684A39997558F8 /* CaptureSession.swift */; };
@@ -43,6 +46,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F64701A0010003 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F64701A0010002 /* CopyToastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyToastController.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F64701A0010001 /* CapturePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePreferences.swift; sourceTree = "<group>"; };
 		F705094010F44DC4B35E467D /* Blink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC23CC216E94B4DBA629B6A /* BlinkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlinkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7593D80789114942A023E60F /* BlinkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkApp.swift; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 			children = (
 				DB0933D43A39490289831659 /* GlobalHotkeyMonitor.swift */,
 				13F9DE7BD6584F4AB7E99C41 /* HotkeyChord.swift */,
+				A1B2C3D4E5F64701A0010001 /* CapturePreferences.swift */,
 			);
 			path = Hotkey;
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				EDDA996AC46E486D9E091250 /* ClipboardFeedback.swift */,
+				A1B2C3D4E5F64701A0010002 /* CopyToastController.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -254,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				F99066C7CCF5461CA7D40E91 /* SettingsView.swift */,
+				A1B2C3D4E5F64701A0010003 /* HotkeyRecorderView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -382,6 +391,9 @@
 				313335AF0F854C948932DC34 /* TextRecognizer.swift in Sources */,
 				BF56ED2EE7774D6CADC558D2 /* GlobalHotkeyMonitor.swift in Sources */,
 				C73BB127F3C341ADAB3CA17A /* HotkeyChord.swift in Sources */,
+				A1B2C3D4E5F64701B0010001 /* CapturePreferences.swift in Sources */,
+				A1B2C3D4E5F64701B0010002 /* CopyToastController.swift in Sources */,
+				A1B2C3D4E5F64701B0010003 /* HotkeyRecorderView.swift in Sources */,
 				FD0BD0B2CE954CA5B647E781 /* PermissionStatus.swift in Sources */,
 				D7BE6DEE83734AA4A27F3CC8 /* OnboardingView.swift in Sources */,
 				0B6D573630D241EBA286E97C /* LoginItemController.swift in Sources */,
