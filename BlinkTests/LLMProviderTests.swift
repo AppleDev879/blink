@@ -122,4 +122,23 @@ final class PromptTransformSettingsProviderTests: XCTestCase {
         XCTAssertEqual(settings.model, "phi3:latest")
         XCTAssertEqual(settings.localReachable, true)
     }
+
+    func testBYOKLocalSlotRoundTrip() {
+        let suite = "blink.tests.provider.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+
+        let settings = PromptTransformSettings(defaults: defaults)
+        settings.provider = .byok
+        settings.endpoint = "https://api.example.com/v1"
+        settings.model = "gpt-test"
+
+        settings.provider = .local
+        XCTAssertEqual(settings.endpoint, OllamaClient.defaultOpenAIEndpoint)
+        XCTAssertNotEqual(settings.model, "gpt-test")
+
+        settings.provider = .byok
+        XCTAssertEqual(settings.endpoint, "https://api.example.com/v1")
+        XCTAssertEqual(settings.model, "gpt-test")
+    }
 }

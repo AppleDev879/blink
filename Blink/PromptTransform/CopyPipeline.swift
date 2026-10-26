@@ -6,13 +6,19 @@ enum CopyPipeline {
         case capture
     }
 
+    /// - Parameter transformModifierHeld: Latched at selection release. When `nil`, reads live flags
+    ///   (useful for tests / non-capture callers).
     @MainActor
-    static func copyText(_ text: String, source: Source) async -> String {
+    static func copyText(
+        _ text: String,
+        source: Source,
+        transformModifierHeld: Bool? = nil
+    ) async -> String {
         let settings = PromptTransformSettings.shared
         var output = text
-        let wantsTransform =
-            settings.provider.transformsEnabled
-            && ModifierHoldDetector.isHeld(settings.requiredModifier)
+        let held = transformModifierHeld
+            ?? ModifierHoldDetector.isHeld(settings.requiredModifier)
+        let wantsTransform = settings.provider.transformsEnabled && held
 
         if wantsTransform {
             switch settings.provider {

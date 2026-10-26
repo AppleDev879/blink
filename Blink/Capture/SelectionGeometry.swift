@@ -29,4 +29,12 @@ enum SelectionGeometry {
         let intersection = rect.intersection(bounds)
         return intersection.isNull ? .zero : intersection
     }
+
+    /// Convert a global CG rect into an SCK `sourceRect`: display-local, origin at the display’s top-left.
+    static func displayLocalSourceRect(globalCGRect: CGRect, displayBounds: CGRect) -> CGRect {
+        let x = globalCGRect.minX - displayBounds.minX
+        let yFromBottom = globalCGRect.minY - displayBounds.minY
+        let y = displayBounds.height - yFromBottom - globalCGRect.height
+        return CGRect(x: x, y: y, width: globalCGRect.width, height: globalCGRect.height)
+    }
 }

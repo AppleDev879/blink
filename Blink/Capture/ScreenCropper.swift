@@ -46,29 +46,39 @@ final class ScreenCropper {
             throw ScreenCropperError.permissionDenied
         }
 
+        let center = CGPoint(x: cgRect.midX, y: cgRect.midY)
         guard let display = content.displays.first(where: { display in
-            let frame = CGRect(x: display.frame.origin.x, y: display.frame.origin.y, width: CGFloat(display.width), height: CGFloat(display.height))
-            // Match by intersection in CG space roughly; prefer display containing rect center.
-            return frame.insetBy(dx: -1, dy: -1).contains(CGPoint(x: cgRect.midX, y: cgRect.midY))
+            display.frame.insetBy(dx: -1, dy: -1).contains(center)
         }) ?? content.displays.first else {
             throw ScreenCropperError.noDisplay
         }
 
         let filter = SCContentFilter(display: display, excludingWindows: [])
         let config = SCStreamConfiguration()
-        let scale = NSScreen.main?.backingScaleFactor ?? 2
+        let scale = backingScaleFactor(forAppKitRect: appKitRect)
         config.width = max(1, Int(appKitRect.width * scale))
         config.height = max(1, Int(appKitRect.height * scale))
-        config.sourceRect = cgRect
+        // SCK sourceRect is display-local with origin at the display’s top-left.
+        config.sourceRect = SelectionGeometry.displayLocalSourceRect(
+            globalCGRect: cgRect,
+            displayBounds: display.frame
+        )
         config.showsCursor = false
         config.pixelFormat = kCVPixelFormatType_32BGRA
 
         do {
-            let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
-            return image
+            return try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
         } catch {
             throw ScreenCropperError.captureFailed(error.localizedDescription)
         }
+    }
+
+    private func backingScaleFactor(forAppKitRect rect: CGRect) -> CGFloat {
+        let mid = CGPoint(x: rect.midX, y: rect.midY)
+        if let screen = NSScreen.screens.first(where: { NSMouseInRect(mid, $0.frame, false) }) {
+            return screen.backingScaleFactor
+        }
+        return NSScreen.main?.backingScaleFactor ?? 2
     }
 
     private func captureWithCGWindowList(cgRect: CGRect) throws -> CGImage {
