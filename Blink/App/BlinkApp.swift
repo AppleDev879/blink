@@ -14,9 +14,15 @@ struct BlinkApp: App {
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    /// XCTest launches Blink.app as TEST_HOST; Sparkle + menu-bar startup can hang runners.
+    private static var isRunningTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Ensure we stay accessory even if Info.plist is overridden in debug.
         NSApp.setActivationPolicy(.accessory)
+        guard !Self.isRunningTests else { return }
         // Touch updater so SPUStandardUpdaterController starts before the menu is used.
         _ = UpdateController.shared
         AppModel.shared.start()
