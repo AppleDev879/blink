@@ -3,6 +3,8 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject private var analytics = AnalyticsClient.shared
     @ObservedObject private var prompt = PromptTransformSettings.shared
+    @ObservedObject private var capture = CapturePreferences.shared
+    @ObservedObject private var loginItem = AppModel.shared.loginItem
     @State private var apiKeyDraft = ""
     @State private var apiKeySaved = KeychainStore.hasAPIKey
 
@@ -16,6 +18,38 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section {
+                LabeledContent("Capture shortcut") {
+                    HotkeyRecorderView(
+                        chord: $capture.captureChord,
+                        registrationFailed: capture.registrationFailed
+                    )
+                }
+
+                Toggle(
+                    "Open at Login",
+                    isOn: Binding(
+                        get: { loginItem.isEnabled },
+                        set: { newValue in
+                            loginItem.setEnabled(newValue)
+                            AnalyticsClient.shared.track(
+                                .openAtLoginToggled,
+                                parameters: ["enabled": newValue ? "true" : "false"]
+                            )
+                            AppModel.shared.rebuildMenu()
+                        }
+                    )
+                )
+
+                Toggle("Show copy toast", isOn: $capture.toastEnabled)
+                Text("Brief confirmation at the bottom of the display after a successful copy.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Brand.fog)
+                    .fixedSize(horizontal: false, vertical: true)
+            } header: {
+                Text("Capture")
+            }
+
+            Section {
                 Toggle(
                     "Share anonymous analytics",
                     isOn: Binding(
@@ -24,7 +58,7 @@ struct SettingsView: View {
                     )
                 )
                 Text(
-                    "Opt-in. Anonymous event names only (launch, capture, OCR fail, hover used, login toggle, prompt transform). No screen content, no OCR text."
+                    "Opt-in. Anonymous event names only (launch, capture, OCR fail, login toggle, prompt transform). No screen content, no OCR text."
                 )
                 .font(.system(size: 12))
                 .foregroundStyle(Brand.fog)
@@ -55,7 +89,7 @@ struct SettingsView: View {
                 }
 
                 TextField("Prompt template", text: $prompt.template, axis: .vertical)
-                    .lineLimit(4...10)
+                    .lineLimit(3...8)
 
                 SecureField(
                     apiKeySaved ? "API key (saved in Keychain)" : "API key",
@@ -92,10 +126,11 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 480, minHeight: 520)
-        .padding()
+        .frame(minWidth: 440, idealWidth: 460, minHeight: 420, idealHeight: 520)
+        .padding(.bottom, 8)
         .onAppear {
             apiKeySaved = KeychainStore.hasAPIKey
+            loginItem.refresh()
         }
     }
 

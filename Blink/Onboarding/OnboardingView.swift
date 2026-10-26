@@ -87,7 +87,7 @@ struct PermissionsFollowUpView: View {
 
             permissionRow(
                 title: "Screen Recording",
-                detail: "Required for ⌘⇧2 capture.",
+                detail: "Required for capture.",
                 status: PermissionGate.screenRecording()
             ) {
                 PermissionGate.requestScreenRecording()

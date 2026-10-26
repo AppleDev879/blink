@@ -29,4 +29,17 @@ final class HotkeyChordTests: XCTestCase {
         XCTAssertEqual(chord?.keyCode, 0)
         XCTAssertEqual(chord?.modifiers, [.option, .shift])
     }
+
+    func testStorageRoundTrip() {
+        let chord = HotkeyChord.captureDefault
+        XCTAssertEqual(chord.storageString, "shift+command+2")
+        XCTAssertEqual(HotkeyChord.parse(chord.storageString), chord)
+    }
+
+    func testLetterKeyLabel() {
+        XCTAssertEqual(HotkeyChord.keyLabel(for: 0), "A")
+        let chord = HotkeyChord(keyCode: 0, modifiers: [.command, .option])
+        XCTAssertEqual(chord.displayLabel, "⌥⌘A")
+        XCTAssertEqual(chord.menuKeyEquivalent, "a")
+    }
 }

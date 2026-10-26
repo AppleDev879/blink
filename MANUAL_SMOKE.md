@@ -12,15 +12,23 @@ CI builds the app and runs unit tests. Global hotkeys, overlays, Screen Recordin
 
 ## Capture → OCR → clipboard
 
-1. Press **⌘⇧2** (or menu → **Capture**).
+1. Press **⌘⇧2** (or menu → **Capture** — title shows the current shortcut).
 2. Confirm mint crosshairs + dim overlay on the active display(s); system pointer is hidden.
 3. Drag a rectangle over visible text (e.g. this markdown heading). Crosshairs track the mouse 1:1.
 4. Release. Confirm:
    - Overlay dismisses (~120–180ms feel); system pointer restored.
    - Menu bar glyph briefly flashes success.
+   - Bottom-of-screen toast (“Copied · N characters”) appears ~1.5–2s on the selection display.
    - Paste (⌘V) into TextEdit / Notes yields the expected plain text.
 5. Press **⌘⇧2**, then **Esc** (before or during drag) — overlay cancels, pointer restored, no clipboard change.
 6. Drag a tiny (~2px) region — capture should no-op (no false clipboard write).
+
+## Settings + shortcut
+
+1. Menu → **Settings…**. Confirm one compact pane (Capture shortcut, Open at Login, toast, analytics, prompt transform).
+2. Click the shortcut control → press a new chord (e.g. ⌘⇧3). Esc while recording cancels.
+3. Confirm menu **Capture** title updates; new chord starts capture; old chord does not.
+4. Toggle **Show copy toast** off → capture still copies, no toast.
 
 ## Permissions failure path
 

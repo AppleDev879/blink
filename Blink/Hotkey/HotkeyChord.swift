@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 
 /// Describes a global hotkey chord in a testable, Carbon-agnostic form.
@@ -18,6 +19,17 @@ struct HotkeyChord: Equatable, Sendable {
     /// Default capture chord: ⌘⇧2
     static let captureDefault = HotkeyChord(keyCode: 19, modifiers: [.command, .shift]) // kVK_ANSI_2 = 19
 
+    /// Stable UserDefaults token, e.g. `command+shift+2`.
+    var storageString: String {
+        var parts: [String] = []
+        if modifiers.contains(.control) { parts.append("control") }
+        if modifiers.contains(.option) { parts.append("option") }
+        if modifiers.contains(.shift) { parts.append("shift") }
+        if modifiers.contains(.command) { parts.append("command") }
+        parts.append(Self.keyLabel(for: keyCode).lowercased())
+        return parts.joined(separator: "+")
+    }
+
     /// Human-readable label for menus / docs.
     var displayLabel: String {
         var parts: [String] = []
@@ -27,6 +39,22 @@ struct HotkeyChord: Equatable, Sendable {
         if modifiers.contains(.command) { parts.append("⌘") }
         parts.append(Self.keyLabel(for: keyCode))
         return parts.joined()
+    }
+
+    /// Character for `NSMenuItem.keyEquivalent`, if mappable.
+    var menuKeyEquivalent: String? {
+        let label = Self.keyLabel(for: keyCode)
+        guard label != "?" else { return nil }
+        return label.lowercased()
+    }
+
+    var menuModifierMask: NSEvent.ModifierFlags {
+        var flags: NSEvent.ModifierFlags = []
+        if modifiers.contains(.command) { flags.insert(.command) }
+        if modifiers.contains(.shift) { flags.insert(.shift) }
+        if modifiers.contains(.option) { flags.insert(.option) }
+        if modifiers.contains(.control) { flags.insert(.control) }
+        return flags
     }
 
     /// Parse strings like "cmd+shift+2", "⌘⇧2", "command-shift-2".
@@ -125,17 +153,65 @@ struct HotkeyChord: Equatable, Sendable {
 
     static func keyLabel(for keyCode: UInt32) -> String {
         switch keyCode {
-        case 19: return "2"
+        case 0: return "A"
+        case 1: return "S"
+        case 2: return "D"
+        case 3: return "F"
+        case 4: return "H"
+        case 5: return "G"
+        case 6: return "Z"
+        case 7: return "X"
+        case 8: return "C"
+        case 9: return "V"
+        case 11: return "B"
+        case 12: return "Q"
+        case 13: return "W"
+        case 14: return "E"
+        case 15: return "R"
+        case 16: return "Y"
+        case 17: return "T"
         case 18: return "1"
+        case 19: return "2"
         case 20: return "3"
         case 21: return "4"
-        case 23: return "5"
         case 22: return "6"
+        case 23: return "5"
+        case 25: return "9"
         case 26: return "7"
         case 28: return "8"
-        case 25: return "9"
         case 29: return "0"
+        case 31: return "O"
+        case 32: return "U"
+        case 34: return "I"
+        case 35: return "P"
+        case 37: return "L"
+        case 38: return "J"
+        case 40: return "K"
+        case 45: return "N"
+        case 46: return "M"
         default: return "?"
         }
+    }
+}
+
+extension HotkeyChord {
+    /// Build from a local key-down event while recording in Settings.
+    init?(nsEvent event: NSEvent) {
+        guard event.type == .keyDown else { return nil }
+        // Ignore pure modifier taps and Esc (handled by recorder).
+        if event.keyCode == 53 { return nil }
+
+        var mods = Modifiers()
+        let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        if flags.contains(.command) { mods.insert(.command) }
+        if flags.contains(.shift) { mods.insert(.shift) }
+        if flags.contains(.option) { mods.insert(.option) }
+        if flags.contains(.control) { mods.insert(.control) }
+        guard !mods.isEmpty else { return nil }
+
+        let code = UInt32(event.keyCode)
+        guard Self.keyLabel(for: code) != "?" else { return nil }
+        self.keyCode = code
+        self.modifiers = mods
     }
 }
