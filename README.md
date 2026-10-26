@@ -20,7 +20,7 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2** (configurable), drag a reg
 | **Open at Login** | `SMAppService` toggle |
 | **Onboarding** | One brand screen, then Screen Recording prompt |
 | **Analytics** | Opt-in anonymous TelemetryDeck signals (off by default) |
-| **Prompt transform** | Hold ⌃ (configurable) at copy time to run OCR through your prompt |
+| **Prompt transform** | Free via BYOK or local Ollama — hold ⌃ (configurable) at copy time. Blink never bills for tokens. |
 
 ## Shortcuts
 
@@ -74,11 +74,31 @@ cp Config/Secrets.xcconfig.example Config/Secrets.xcconfig
 
 `Config/Secrets.xcconfig` is gitignored. `Blink/Info.plist` reads `$(BLINK_TELEMETRYDECK_APP_ID)` via `Config/Shared.xcconfig`. Without a real App ID, the toggle does nothing harmful — signals are skipped.
 
-## Prompt transform
+## Free + LLM (prompt transform)
 
-Settings → enable **Transform with prompt when ⌃ held**, edit the template (`{{text}}` placeholder), paste an OpenAI-compatible API key (Keychain), set endpoint/model/timeout.
+Core capture (OCR → clipboard) stays free forever. Optional ⌃-held transforms use **your** API key or a **local** model — Blink doesn’t bill for tokens and does not ship a hosted credits proxy.
 
-At capture release: if the modifier is held and a key is saved, Blink runs the prompt and copies the model reply. No key? Raw OCR is copied; the menu shows one quiet hint to add a key. Never nags.
+Settings → **Prompt transform** → provider:
+
+| Provider | What it does |
+| --- | --- |
+| **Off** | ⌃-held transform disabled; capture always copies raw OCR |
+| **BYOK** | OpenAI-compatible Keychain key + endpoint/model; optional **Validate** dry-run |
+| **Local (Ollama)** | Default `http://localhost:11434` (chat via `/v1`); detect reachability, list models, **Use local model** |
+
+Template uses `{{text}}`. At capture release: if the provider is armed and the modifier is held, Blink runs the prompt and copies the model reply. No key / Ollama down / Off → raw OCR + one quiet menu hint. Never an error modal.
+
+### Try BYOK
+
+1. Settings → Provider **BYOK** → paste an OpenAI-compatible API key → **Save API Key**.
+2. Set endpoint/model (defaults: `https://api.openai.com/v1`, `gpt-4o-mini`) → optional **Validate**.
+3. Capture a region while holding **⌃** — clipboard gets the model reply.
+
+### Try Ollama locally
+
+1. Install and run [Ollama](https://ollama.com); pull a model (`ollama pull llama3.2`).
+2. Settings → Provider **Local (Ollama)** → wait for “Ollama reachable” → pick a model (or **Use local model**).
+3. Capture while holding **⌃**. If Ollama isn’t running, Blink copies raw OCR quietly.
 
 ## Auto-updates (Sparkle)
 

@@ -1,6 +1,6 @@
 import Foundation
 
-enum PromptTransformError: Error, LocalizedError {
+enum PromptTransformError: Error, LocalizedError, Equatable {
     case missingAPIKey
     case invalidEndpoint
     case badResponse(Int)
@@ -27,7 +27,7 @@ struct PromptTransformService: Sendable {
         template: String,
         endpoint: String,
         model: String,
-        apiKey: String,
+        apiKey: String?,
         timeout: TimeInterval
     ) async throws -> String {
         let prompt = PromptTemplate.interpolate(template, text: text)
@@ -39,7 +39,9 @@ struct PromptTransformService: Sendable {
         request.httpMethod = "POST"
         request.timeoutInterval = max(3, timeout)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        if let apiKey, !apiKey.isEmpty {
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        }
 
         let body: [String: Any] = [
             "model": model,
@@ -75,6 +77,23 @@ struct PromptTransformService: Sendable {
         let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { throw PromptTransformError.emptyCompletion }
         return trimmed
+    }
+
+    /// Lightweight connectivity check — one tiny chat completion.
+    func validate(
+        endpoint: String,
+        model: String,
+        apiKey: String?,
+        timeout: TimeInterval = 12
+    ) async throws {
+        _ = try await transform(
+            text: "ok",
+            template: "Reply with the single word pong.\n\n{{text}}",
+            endpoint: endpoint,
+            model: model,
+            apiKey: apiKey,
+            timeout: timeout
+        )
     }
 
     /// Accepts base (`https://api.openai.com/v1`) or full chat completions URL.

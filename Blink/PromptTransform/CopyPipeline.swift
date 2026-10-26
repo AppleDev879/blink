@@ -10,23 +10,35 @@ enum CopyPipeline {
     static func copyText(_ text: String, source: Source) async -> String {
         let settings = PromptTransformSettings.shared
         var output = text
-        let wantsTransform = settings.isEnabled && ModifierHoldDetector.isHeld(settings.requiredModifier)
+        let wantsTransform =
+            settings.provider.transformsEnabled
+            && ModifierHoldDetector.isHeld(settings.requiredModifier)
 
-        if wantsTransform, let apiKey = KeychainStore.apiKey(), !apiKey.isEmpty {
-            do {
-                let service = PromptTransformService()
-                output = try await service.transform(
+        if wantsTransform {
+            switch settings.provider {
+            case .off:
+                break
+
+            case .byok:
+                if let apiKey = KeychainStore.apiKey(), !apiKey.isEmpty {
+                    output = await runTransform(
+                        text: text,
+                        settings: settings,
+                        apiKey: apiKey,
+                        source: source,
+                        provider: .byok
+                    )
+                }
+                // No key → raw OCR; menu shows a quiet setup hint.
+
+            case .local:
+                output = await runTransform(
                     text: text,
-                    template: settings.template,
-                    endpoint: settings.endpoint,
-                    model: settings.model,
-                    apiKey: apiKey,
-                    timeout: settings.timeoutSeconds
+                    settings: settings,
+                    apiKey: nil,
+                    source: source,
+                    provider: .local
                 )
-                AnalyticsClient.shared.track(.promptTransformUsed, parameters: ["source": source.rawValue])
-            } catch {
-                // Quiet fallback — keep moving with raw OCR.
-                output = text
             }
         }
 
@@ -38,5 +50,43 @@ enum CopyPipeline {
         }
 
         return output
+    }
+
+    @MainActor
+    private static func runTransform(
+        text: String,
+        settings: PromptTransformSettings,
+        apiKey: String?,
+        source: Source,
+        provider: LLMProvider
+    ) async -> String {
+        do {
+            let service = PromptTransformService()
+            let result = try await service.transform(
+                text: text,
+                template: settings.template,
+                endpoint: settings.endpoint,
+                model: settings.model,
+                apiKey: apiKey,
+                timeout: settings.timeoutSeconds
+            )
+            if provider == .local {
+                settings.localReachable = true
+            }
+            AnalyticsClient.shared.track(
+                .promptTransformUsed,
+                parameters: [
+                    "source": source.rawValue,
+                    "provider": provider.rawValue
+                ]
+            )
+            return result
+        } catch {
+            // Quiet fallback — keep moving with raw OCR.
+            if provider == .local {
+                settings.localReachable = false
+            }
+            return text
+        }
     }
 }

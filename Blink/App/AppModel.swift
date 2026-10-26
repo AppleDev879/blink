@@ -161,9 +161,10 @@ final class AppModel: ObservableObject {
         settings.target = self
         menu.addItem(settings)
 
-        if PromptTransformSettings.shared.needsAPIKeyHint {
+        let promptSettings = PromptTransformSettings.shared
+        if promptSettings.needsSetupHint {
             let hint = NSMenuItem(
-                title: "Prompt transform: add API key in Settings",
+                title: promptSettings.setupHintTitle,
                 action: #selector(openSettingsAction),
                 keyEquivalent: ""
             )
