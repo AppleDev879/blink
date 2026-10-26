@@ -18,6 +18,8 @@ final class AppModel: ObservableObject {
 
     private var statusItem: NSStatusItem?
     private var cancellables = Set<AnyCancellable>()
+    /// Last chord that Carbon accepted — restored when a new registration fails.
+    private var registeredChord: HotkeyChord?
 
     private let onboardingKey = "blink.didCompleteOnboarding"
 
@@ -55,10 +57,20 @@ final class AppModel: ObservableObject {
 
     func registerCaptureHotkey() {
         let chord = capturePreferences.captureChord
-        let ok = hotkey.register(chord) { [weak self] in
+        let trigger: () -> Void = { [weak self] in
             self?.captureSession.beginCapture()
         }
-        capturePreferences.registrationFailed = !ok
+        let ok = hotkey.register(chord, onTrigger: trigger)
+        if ok {
+            registeredChord = chord
+            capturePreferences.registrationFailed = false
+        } else {
+            // Keep capture working: put the previous chord back if Carbon refused the new one.
+            capturePreferences.registrationFailed = true
+            if let previous = registeredChord, previous != chord {
+                _ = hotkey.register(previous, onTrigger: trigger)
+            }
+        }
         if let button = statusItem?.button {
             button.toolTip = "Blink — \(chord.displayLabel)"
         }

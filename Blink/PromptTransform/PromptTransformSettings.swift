@@ -85,9 +85,6 @@ final class PromptTransformSettings: ObservableObject {
         }
     }
 
-    /// Backward-compatible name used by AppModel.
-    var needsAPIKeyHint: Bool { needsSetupHint }
-
     var setupHintTitle: String {
         switch provider {
         case .off:

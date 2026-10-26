@@ -32,10 +32,19 @@ final class CaptureSession {
         defer { isCapturing = false }
         guard let rect else { return }
 
+        // Latch before OCR — users hold the modifier through release, not through recognition.
+        let transformModifierHeld = ModifierHoldDetector.isHeld(
+            PromptTransformSettings.shared.requiredModifier
+        )
+
         do {
             let image = try await cropper.capture(rectInAppKit: rect)
             let text = try await recognizer.recognize(cgImage: image)
-            let output = await CopyPipeline.copyText(text, source: .capture)
+            let output = await CopyPipeline.copyText(
+                text,
+                source: .capture,
+                transformModifierHeld: transformModifierHeld
+            )
             ClipboardFeedback.flashSuccess(statusItem: statusItem)
             if CapturePreferences.shared.toastEnabled {
                 CopyToastController.show(characterCount: output.count, selectionRect: rect)

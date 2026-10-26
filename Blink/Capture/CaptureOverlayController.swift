@@ -13,7 +13,7 @@ final class CaptureOverlayController: NSObject {
     var onComplete: ((CGRect?) -> Void)?
 
     func present() {
-        dismiss(commit: false)
+        dismissOverlay()
         for screen in NSScreen.screens {
             let window = CaptureOverlayWindow(screen: screen)
             window.overlayDelegate = self
@@ -27,15 +27,12 @@ final class CaptureOverlayController: NSObject {
         windows.first?.makeKeyAndOrderFront(nil)
     }
 
-    func dismiss(commit: Bool) {
-        let result = commit ? currentRect : nil
-        let wasPresented = isPresented
+    /// Tear down UI without invoking `onComplete` (used when re-presenting).
+    func dismissOverlay() {
+        guard isPresented || !windows.isEmpty || didHideCursor || escapeMonitor != nil else { return }
         teardownUI()
         startPoint = nil
         currentRect = nil
-        if commit, wasPresented {
-            onComplete?(result)
-        }
     }
 
     fileprivate func beginDrag(at point: CGPoint) {
@@ -60,17 +57,17 @@ final class CaptureOverlayController: NSObject {
                 minimumSide: 4
             )
         }
-        currentRect = finalized
         teardownUI()
         startPoint = nil
-        let rect = currentRect
         currentRect = nil
-        onComplete?(rect)
+        onComplete?(finalized)
     }
 
     fileprivate func cancel() {
         guard isPresented else { return }
-        dismiss(commit: false)
+        teardownUI()
+        startPoint = nil
+        currentRect = nil
         onComplete?(nil)
     }
 
@@ -161,7 +158,6 @@ private final class CaptureOverlayView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        // Dim
         NSColor.black.withAlphaComponent(0.35).setFill()
         bounds.fill()
 
@@ -171,13 +167,11 @@ private final class CaptureOverlayView: NSView {
             let screenFrame = window.screen?.frame ?? window.frame
             let clipped = global.intersection(screenFrame)
             guard !clipped.isNull, clipped.width > 0, clipped.height > 0 else { return nil }
-            // Convert global AppKit coords into this window's view coords.
             let originInWindow = window.convertPoint(fromScreen: clipped.origin)
             return CGRect(origin: originInWindow, size: clipped.size)
         }()
 
         if let selection = localSelection, selection.width > 0, selection.height > 0 {
-            // Clear the selected region so the user sees the live screen.
             NSGraphicsContext.current?.compositingOperation = .clear
             selection.fill()
             NSGraphicsContext.current?.compositingOperation = .sourceOver
@@ -198,19 +192,16 @@ private final class CaptureOverlayView: NSView {
         path.lineWidth = 1
         let arm: CGFloat = 18
         let gap: CGFloat = 6
-        // Horizontal
         path.move(to: CGPoint(x: mouse.x - arm, y: mouse.y))
         path.line(to: CGPoint(x: mouse.x - gap, y: mouse.y))
         path.move(to: CGPoint(x: mouse.x + gap, y: mouse.y))
         path.line(to: CGPoint(x: mouse.x + arm, y: mouse.y))
-        // Vertical
         path.move(to: CGPoint(x: mouse.x, y: mouse.y - arm))
         path.line(to: CGPoint(x: mouse.x, y: mouse.y - gap))
         path.move(to: CGPoint(x: mouse.x, y: mouse.y + gap))
         path.line(to: CGPoint(x: mouse.x, y: mouse.y + arm))
         path.stroke()
 
-        // Center open square
         let box: CGFloat = 8
         let square = NSRect(x: mouse.x - box / 2, y: mouse.y - box / 2, width: box, height: box)
         let squarePath = NSBezierPath(rect: square)
@@ -223,8 +214,7 @@ private final class CaptureOverlayView: NSView {
     }
 
     override func mouseDown(with event: NSEvent) {
-        let global = NSEvent.mouseLocation
-        owner?.overlayDelegate?.beginDrag(at: global)
+        owner?.overlayDelegate?.beginDrag(at: NSEvent.mouseLocation)
         needsDisplay = true
     }
 

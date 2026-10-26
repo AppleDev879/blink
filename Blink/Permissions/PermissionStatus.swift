@@ -20,20 +20,16 @@ enum PermissionKind: String, CaseIterable {
 
 enum PermissionStatus {
     case granted
+    /// Preflight failed — includes first-run not-determined (macOS does not expose that separately here).
     case denied
-    case notDetermined
 
     var isUsable: Bool { self == .granted }
 }
 
 enum PermissionGate {
-    /// CGPreflightScreenCaptureAccess is the modern preflight; also try a tiny CGWindowList probe.
+    /// `CGPreflightScreenCaptureAccess` — false covers both denied and not-yet-prompted.
     static func screenRecording() -> PermissionStatus {
-        if CGPreflightScreenCaptureAccess() {
-            return .granted
-        }
-        // Preflight false can mean not-determined on first launch.
-        return .denied
+        CGPreflightScreenCaptureAccess() ? .granted : .denied
     }
 
     static func requestScreenRecording() {

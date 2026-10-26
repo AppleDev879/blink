@@ -1,7 +1,7 @@
 import AppKit
 import Foundation
 
-/// Reads modifier state at the copy moment (capture release / experimental click).
+/// Reads modifier state at selection release (latched before OCR).
 enum ModifierHoldDetector {
     /// Device-independent modifier flags currently held (ignores caps lock).
     static func currentFlags() -> NSEvent.ModifierFlags {

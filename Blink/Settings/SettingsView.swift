@@ -114,7 +114,7 @@ struct SettingsView: View {
 
             switch prompt.provider {
             case .off:
-                Text("⌃-held transform is off. Capture still copies raw OCR.")
+                Text("\(prompt.requiredModifier.displaySymbol)-held transform is off. Capture still copies raw OCR.")
                     .font(.system(size: 12))
                     .foregroundStyle(Brand.fog)
 
@@ -277,9 +277,10 @@ struct SettingsView: View {
     }
 
     private var footerCopy: String {
+        let symbol = prompt.requiredModifier.displaySymbol
         switch prompt.provider {
         case .off:
-            return "Core capture stays free. Turn on BYOK or Local when you want ⌃ transforms."
+            return "Core capture stays free. Turn on BYOK or Local when you want \(symbol) transforms."
         case .byok:
             return "No key? Blink copies raw text and stays quiet. Never nags."
         case .local:
