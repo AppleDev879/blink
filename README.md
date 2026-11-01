@@ -1,7 +1,7 @@
 # Blink
 
 <p align="center">
-  <img src="docs/blink-mark.jpg" alt="Blink mark — mint crosshair on charcoal" width="128" height="128" />
+  <img src="docs/blink-mark.jpg" alt="Blink mark — charcoal crosshair on soft warm gray" width="128" height="128" />
 </p>
 
 **Select any part of your screen. Get the text.**
