@@ -1,7 +1,7 @@
 # Blink
 
 <p align="center">
-  <img src="docs/blink-mark.jpg" alt="Blink mark — mint crosshair on charcoal" width="128" height="128" />
+  <img src="docs/blink-mark.jpg" alt="Blink mark — standard macOS crosshair on light neutral ground" width="128" height="128" />
 </p>
 
 **Select any part of your screen. Get the text.**
@@ -31,7 +31,7 @@ Blink is a macOS menu-bar OCR tool. Press **⌘⇧2** (configurable), drag a reg
 
 Menu → **Capture** shows the current chord. If registration fails (conflict), Blink stays quiet and Settings shows a short hint.
 
-While the overlay is up, the system pointer is hidden; mint crosshairs track the mouse 1:1 until you release a selection, press Esc, or the session ends. After a successful copy, a brief bottom-of-screen toast confirms (toggle in Settings).
+While the overlay is up, the pointer switches to the standard macOS crosshair (`NSCursor.crosshair`) until you release a selection, press Esc, or the session ends. After a successful copy, a brief bottom-of-screen toast confirms (toggle in Settings).
 
 ## Build & run
 
