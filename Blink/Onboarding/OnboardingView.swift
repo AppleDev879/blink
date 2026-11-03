@@ -143,28 +143,18 @@ struct PermissionsFollowUpView: View {
     }
 }
 
-/// Mint crosshair mark matching the product icon.
+/// System-style crosshair mark matching `NSCursor.crosshair` / the Dock icon.
 struct CrosshairMark: View {
     var body: some View {
         Canvas { context, size in
             let cx = size.width / 2
             let cy = size.height / 2
-            let arm = size.width * 0.38
-            let gap = size.width * 0.12
-            let box = size.width * 0.18
-            var path = Path()
-            path.move(to: CGPoint(x: cx, y: cy - arm))
-            path.addLine(to: CGPoint(x: cx, y: cy - gap))
-            path.move(to: CGPoint(x: cx, y: cy + gap))
-            path.addLine(to: CGPoint(x: cx, y: cy + arm))
-            path.move(to: CGPoint(x: cx - arm, y: cy))
-            path.addLine(to: CGPoint(x: cx - gap, y: cy))
-            path.move(to: CGPoint(x: cx + gap, y: cy))
-            path.addLine(to: CGPoint(x: cx + arm, y: cy))
-            context.stroke(path, with: .color(Brand.mint), lineWidth: 3)
-
-            let square = Path(roundedRect: CGRect(x: cx - box / 2, y: cy - box / 2, width: box, height: box), cornerRadius: 0)
-            context.stroke(square, with: .color(Brand.mint), lineWidth: 3)
+            let arm = size.width * 0.34
+            let thickness = max(3, size.width * 0.14)
+            let vertical = CGRect(x: cx - thickness / 2, y: cy - arm, width: thickness, height: arm * 2)
+            let horizontal = CGRect(x: cx - arm, y: cy - thickness / 2, width: arm * 2, height: thickness)
+            context.fill(Path(roundedRect: vertical, cornerRadius: thickness / 2), with: .color(Brand.ink))
+            context.fill(Path(roundedRect: horizontal, cornerRadius: thickness / 2), with: .color(Brand.ink))
         }
     }
 }

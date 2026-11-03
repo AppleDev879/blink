@@ -1,14 +1,14 @@
 import AppKit
 import SwiftUI
 
-/// Full-screen dim + mint crosshairs + drag-select overlay across all displays.
+/// Full-screen dim + system crosshair cursor + drag-select overlay across all displays.
 @MainActor
 final class CaptureOverlayController: NSObject {
     private var windows: [CaptureOverlayWindow] = []
     private var startPoint: CGPoint?
     private var currentRect: CGRect?
     private var escapeMonitor: Any?
-    private var didHideCursor = false
+    private var didPushCrosshair = false
     private var isPresented = false
     var onComplete: ((CGRect?) -> Void)?
 
@@ -21,7 +21,7 @@ final class CaptureOverlayController: NSObject {
             windows.append(window)
         }
         isPresented = true
-        hideSystemCursor()
+        pushSystemCrosshair()
         installEscapeMonitor()
         NSApp.activate(ignoringOtherApps: true)
         windows.first?.makeKeyAndOrderFront(nil)
@@ -29,7 +29,7 @@ final class CaptureOverlayController: NSObject {
 
     /// Tear down UI without invoking `onComplete` (used when re-presenting).
     func dismissOverlay() {
-        guard isPresented || !windows.isEmpty || didHideCursor || escapeMonitor != nil else { return }
+        guard isPresented || !windows.isEmpty || didPushCrosshair || escapeMonitor != nil else { return }
         teardownUI()
         startPoint = nil
         currentRect = nil
@@ -74,21 +74,22 @@ final class CaptureOverlayController: NSObject {
     private func teardownUI() {
         isPresented = false
         removeEscapeMonitor()
-        restoreSystemCursor()
+        popSystemCrosshair()
         windows.forEach { $0.orderOut(nil) }
         windows.removeAll()
     }
 
-    private func hideSystemCursor() {
-        guard !didHideCursor else { return }
-        NSCursor.hide()
-        didHideCursor = true
+    private func pushSystemCrosshair() {
+        guard !didPushCrosshair else { return }
+        NSCursor.crosshair.push()
+        didPushCrosshair = true
+        windows.forEach { $0.invalidateCursorRects(for: $0.contentView ?? NSView()) }
     }
 
-    private func restoreSystemCursor() {
-        guard didHideCursor else { return }
-        NSCursor.unhide()
-        didHideCursor = false
+    private func popSystemCrosshair() {
+        guard didPushCrosshair else { return }
+        NSCursor.pop()
+        didPushCrosshair = false
     }
 
     private func installEscapeMonitor() {
@@ -155,6 +156,15 @@ private final class CaptureOverlayView: NSView {
     override func viewDidMoveToWindow() {
         window?.makeKey()
         window?.makeFirstResponder(self)
+        NSCursor.crosshair.set()
+    }
+
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: .crosshair)
+    }
+
+    override func cursorUpdate(with event: NSEvent) {
+        NSCursor.crosshair.set()
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -176,49 +186,30 @@ private final class CaptureOverlayView: NSView {
             selection.fill()
             NSGraphicsContext.current?.compositingOperation = .sourceOver
 
+            // Quiet selection stroke — mint only as a light accent, not a custom pointer.
             Brand.mintNS.withAlphaComponent(0.95).setStroke()
             let path = NSBezierPath(rect: selection.insetBy(dx: 0.5, dy: 0.5))
             path.lineWidth = 1.5
             path.stroke()
         }
-
-        drawCrosshairs()
     }
 
-    private func drawCrosshairs() {
-        let mouse = window?.mouseLocationOutsideOfEventStream ?? .zero
-        Brand.mintNS.withAlphaComponent(0.85).setStroke()
-        let path = NSBezierPath()
-        path.lineWidth = 1
-        let arm: CGFloat = 18
-        let gap: CGFloat = 6
-        path.move(to: CGPoint(x: mouse.x - arm, y: mouse.y))
-        path.line(to: CGPoint(x: mouse.x - gap, y: mouse.y))
-        path.move(to: CGPoint(x: mouse.x + gap, y: mouse.y))
-        path.line(to: CGPoint(x: mouse.x + arm, y: mouse.y))
-        path.move(to: CGPoint(x: mouse.x, y: mouse.y - arm))
-        path.line(to: CGPoint(x: mouse.x, y: mouse.y - gap))
-        path.move(to: CGPoint(x: mouse.x, y: mouse.y + gap))
-        path.line(to: CGPoint(x: mouse.x, y: mouse.y + arm))
-        path.stroke()
-
-        let box: CGFloat = 8
-        let square = NSRect(x: mouse.x - box / 2, y: mouse.y - box / 2, width: box, height: box)
-        let squarePath = NSBezierPath(rect: square)
-        squarePath.lineWidth = 1.25
-        squarePath.stroke()
+    override func mouseEntered(with event: NSEvent) {
+        NSCursor.crosshair.set()
     }
 
     override func mouseMoved(with event: NSEvent) {
-        needsDisplay = true
+        NSCursor.crosshair.set()
     }
 
     override func mouseDown(with event: NSEvent) {
+        NSCursor.crosshair.set()
         owner?.overlayDelegate?.beginDrag(at: NSEvent.mouseLocation)
         needsDisplay = true
     }
 
     override func mouseDragged(with event: NSEvent) {
+        NSCursor.crosshair.set()
         owner?.overlayDelegate?.updateDrag(to: NSEvent.mouseLocation)
         needsDisplay = true
     }

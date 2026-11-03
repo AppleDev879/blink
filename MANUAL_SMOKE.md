@@ -13,8 +13,8 @@ CI builds the app and runs unit tests. Global hotkeys, overlays, Screen Recordin
 ## Capture → OCR → clipboard
 
 1. Press **⌘⇧2** (or menu → **Capture** — title shows the current shortcut).
-2. Confirm mint crosshairs + dim overlay on the active display(s); system pointer is hidden.
-3. Drag a rectangle over visible text (e.g. this markdown heading). Crosshairs track the mouse 1:1.
+2. Confirm dim overlay + the standard macOS crosshair cursor on the active display(s); the system pointer is not hidden for a custom reticle.
+3. Drag a rectangle over visible text (e.g. this markdown heading). The system crosshair tracks normally.
 4. Release. Confirm:
    - Overlay dismisses (~120–180ms feel); system pointer restored.
    - Menu bar glyph briefly flashes success.
