@@ -115,6 +115,16 @@ Menu bar → **Check for Updates…**. Quiet background checks are enabled (dail
 - Overlay + global hotkey + clipboard cannot be fully driven in CI — see [MANUAL_SMOKE.md](MANUAL_SMOKE.md).
 - Tests do not exercise network update checks.
 
+## Related: LineScroll (iOS)
+
+This repository also contains **LineScroll**, a separate iOS SwiftUI MVP for one-line-at-a-time reading of Project Gutenberg plain text. It does not affect the Blink macOS target.
+
+```bash
+open LineScroll/LineScroll.xcodeproj
+```
+
+See [LineScroll/README.md](LineScroll/README.md).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
