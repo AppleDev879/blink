@@ -80,11 +80,17 @@ jobs:
       - name: Build LineScroll
         run: |
           set -o pipefail
-          DEST=$(xcodebuild -project LineScroll/LineScroll.xcodeproj -scheme LineScroll -showdestinations 2>/dev/null | sed -n 's/.*platform:iOS Simulator,.*id:\([^,]*\).*/id=\1/p' | head -1)
+          # Prefer a concrete iPhone simulator when present; otherwise build for the
+          # generic iOS Simulator SDK (avoids matching the "placeholder" destination).
+          DEST=""
+          for name in "iPhone 17" "iPhone 17 Pro" "iPhone 16" "iPhone 15"; do
+            if xcrun simctl list devices available | grep -F "$name (" >/dev/null 2>&1; then
+              DEST="platform=iOS Simulator,name=$name"
+              break
+            fi
+          done
           if [ -z "$DEST" ]; then
-            DEST='platform=iOS Simulator,name=iPhone 16'
-          else
-            DEST="platform=iOS Simulator,$DEST"
+            DEST="generic/platform=iOS Simulator"
           fi
           echo "Using destination: $DEST"
           xcodebuild \
